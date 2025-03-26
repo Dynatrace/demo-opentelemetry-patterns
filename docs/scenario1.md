@@ -6,7 +6,9 @@ In order to reduce load on both the collector and Dynatrace, you most likely do 
 
 Rather, the log lines should be bundled and sent to Dynatrace in batches.
 
-[scenario1.yaml](../scenario1.yaml) shows the OpenTelemetry collector configuration to achieve this.
+[scenario1.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario1.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+
+We will first generate the data then explain the YAML configuration.
 
 ## Start Collector
 

@@ -11,9 +11,9 @@ Provide the tenant ID and API token via the form. These will be encrypted and st
 
 ## Understand Demo Environment
 
-The Dynatrace OpenTelemetry Collector (`./dynatrace-otel-collector`) is automatically downloaded at startup. The collector is the syslog server. This collector distribution is officially supported by Dynatrace.
+The Dynatrace OpenTelemetry Collector (`./dynatrace-otel-collector`) is automatically downloaded at startup. This collector distribution is officially supported by Dynatrace.
 
-The `filelog` receiver we will soon define (in a YAML file) will watch a log file and send the log lines to the collector.
+The `filelog` receiver we will soon define (in a YAML file) will watch one or more log files and send the log lines to the collector.
 
 We will use the collector to process, enrich or drop data.
 
@@ -80,5 +80,5 @@ The pipelines block defines how the collector components are connected in an end
 In this case, `1` pipeline (dealing with log data) is defined. This pipeline will receive data using the `filelog` receiver, process the data using the `batch` processor (no prizes for what this does) and export it to **both** the `debug` and `otlphttp` exporters simultaneously.
 
 <div class="grid cards" markdown>
-- [Click here to continue :octicons-arrow-right-24:](run-demo.md)
+- [Click here to continue :octicons-arrow-right-24:](scenario1.md)
 </div>

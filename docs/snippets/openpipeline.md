@@ -1,0 +1,2 @@
+!!! info "OpenPipeline"
+    If you prefer to process data on-cluster without deploying infrastructure, we suggest using [Dynatrace OpenPipeline](https://docs.dynatrace.com/docs/discover-dynatrace/platform/openpipeline){target=_blank}.

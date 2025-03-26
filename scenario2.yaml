@@ -1,0 +1,29 @@
+receivers:
+  filelog:
+    include: /path/to/log/file.log
+    include_file_name: true
+    include_file_path: true
+
+processors:
+  batch:
+    send_batch_size: 500
+    timeout: 2s
+  resourcedetection:
+    detectors: ["system"]
+    system:
+      hostname_sources: ["os"]
+
+exporters:
+  debug:
+    verbosity: detailed
+
+  otlphttp/dynatrace:
+    endpoint: "${env:DT_ENDPOINT}"
+    headers: 
+      Authorization: "Api-Token ${env:DT_API_TOKEN}"
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [resourcedetection, batch]
+      exporters: [debug, otlphttp/dynatrace]

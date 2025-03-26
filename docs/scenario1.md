@@ -26,6 +26,32 @@ Open the empty `file.log` file and add this line then save the file.
 My first dummy log line...
 ```
 
+## Verify Debug Data in Collector Output
+
+View the collector terminal window and verify that the filelog receiver has sent the data to the collector. You should see terminal output like this:
+
+```
+...
+2025-03-26T06:49:00.944Z        info    Logs    {"kind": "exporter", "data_type": "logs", "name": "debug", "resource logs": 1, "log records": 1}
+2025-03-26T06:49:00.944Z        info    ResourceLog #0
+Resource SchemaURL: 
+ScopeLogs #0
+ScopeLogs SchemaURL: 
+InstrumentationScope  
+LogRecord #0
+ObservedTimestamp: 2025-03-26 06:48:59.538241971 +0000 UTC
+Timestamp: 1970-01-01 00:00:00 +0000 UTC
+SeverityText: 
+SeverityNumber: Unspecified(0)
+Body: Str(My first dummy log line...)
+Attributes:
+     -> log.file.name: Str(file.log)
+Trace ID: 
+Span ID: 
+Flags: 0
+        {"kind": "exporter", "data_type": "logs", "name": "debug"}
+```
+
 ## View Data in Dynatrace
 
 In Dynatrace:

@@ -23,7 +23,18 @@ Run the following command to start the collector:
 Open the empty `file.log` file and add this line then save the file.
 
 ```
-My first log line...
+My first dummy log line...
+```
+
+## View Data in Dynatrace
+
+In Dynatrace:
+
+- Press `ctrl + k` and search for `notebooks`
+- Create a new notebook and add a new DQL tile with this code:
+```
+fetch logs
+| filter contains(body, "dummy log line")
 ```
 
 <div class="grid cards" markdown>

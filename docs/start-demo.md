@@ -60,7 +60,7 @@ In the following scenarios, 2 exporters are defined: `debug` and `otlphttp`. The
 
 The `otlphttp` exporter sends data to an endpoint in OpenTelemetry Protocol (OTLP) format via HTTPS. Dynatrace natively understands the OTLP format.
 
-Notice that two environment variables are referenced: `DT_ENDPOINT_SYSLOG` and `DT_API_TOKEN_SYSLOG` you may recall these from the form you completed when the codespace started.
+Notice that two environment variables are referenced: `DT_ENDPOINT` and `DT_API_TOKEN` you may recall these from the form you completed when the codespace started.
 
 These environment variables are already set for you, so you don't need to do anything else.
 
@@ -70,13 +70,14 @@ These environment variables are already set for you, so you don't need to do any
 service:
   pipelines:
     logs:
-      receivers: [syslog]
+      receivers: [filelog]
+      processors: [batch]
       exporters: [debug, otlphttp]
 ```
 
 The pipelines block defines how the collector components are connected in an end-to-end pipeline.
 
-In this case, `1` pipeline (dealing with log data) is defined. This pipeline will receive data using the `syslog` receiver and export it to **both** the `debug` and `otlphttp` exporters simultaneously.
+In this case, `1` pipeline (dealing with log data) is defined. This pipeline will receive data using the `filelog` receiver, process the data using the `batch` processor (no guesses for what this does) and export it to **both** the `debug` and `otlphttp` exporters simultaneously.
 
 <div class="grid cards" markdown>
 - [Click here to continue :octicons-arrow-right-24:](run-demo.md)

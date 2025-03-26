@@ -1,0 +1,42 @@
+receivers:
+  filelog:
+    include: /path/to/log/file.log
+    include_file_name: true
+    include_file_path: true
+
+processors:
+  batch:
+    send_batch_size: 500
+    timeout: 2s
+  resourcedetection:
+    detectors: ["system"]
+    system:
+      hostname_sources: ["os"]
+  transform:
+    log_statements:
+      - context: log
+        statements:
+          - set(log.time, Now()) 
+          - set(log.observed_time, Now())
+          - set(log.severity_text, "INFO") where IsMatch(log.severity_text, "")
+          - set(log.severity_text, "ERROR") where IsMatch(body, ".*something is broken.*")
+          - set(attributes["foo"], "bar") where IsMatch(body, ".*someText.*")
+          - replace_pattern(body, "user.tier=", "userTier=")
+          - set(log.attributes["support-tier"], "gold") where IsMatch(body, ".*userTier=tier1.*")
+          - set(log.attributes["support-tier"], "silver") where IsMatch(body, ".*userTier=tier2.*")
+          - set(log.attributes["support-tier"], "bronze") where IsMatch(body, ".*userTier=tier3.*")
+
+exporters:
+  debug:
+    verbosity: detailed
+
+  otlphttp/dynatrace:
+    endpoint: "${env:DT_ENDPOINT}"
+    headers: 
+      Authorization: "Api-Token ${env:DT_API_TOKEN}"
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [resourcedetection, transform, batch]
+      exporters: [debug, otlphttp/dynatrace]

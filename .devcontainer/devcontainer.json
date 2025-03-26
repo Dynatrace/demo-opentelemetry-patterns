@@ -1,0 +1,25 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/kubernetes-helm
+{
+	"name": "opentelemetry cleanup lab",
+
+	"hostRequirements": {
+		"cpus": 2
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "pip install -r /workspaces/$RepositoryName/.devcontainer/requirements.txt --break-system-packages && python3 /workspaces/$RepositoryName/environment_installer.py",
+
+	// Add recommended secrets
+	"secrets": {
+	 	  "DT_ENVIRONMENT_ID": {
+	            "description": "eg. abc12345 from https://abc12345.live.dynatrace.com"
+		},
+		  "DT_ENVIRONMENT_TYPE": {
+			"description": "eg. live, sprint or dev. If unsure, use live."
+		},
+		  "DT_API_TOKEN": {
+	    	    "description": "Dynatrace API token with these permissions: `logs.ingest`"
+		}
+	}
+}

@@ -1,6 +1,6 @@
-# Scenario 1: Batching Telemetry
+# Batching Telemetry
 
---8<-- "snippets/bizevent-run-demo.js"
+--8<-- "snippets/bizevent-scenario1.js"
 
 In order to reduce load on both the collector and Dynatrace, you most likely do **not** want to send every log line individually.
 
@@ -60,9 +60,11 @@ In Dynatrace:
 - Create a new notebook and add a new DQL tile with this code:
 ```
 fetch logs
-| filter contains(body, "dummy log line")
+| filter contains(content, "dummy log line")
 ```
 
+Notice that the batching was entirely transparent to you.
+
 <div class="grid cards" markdown>
-- [Click here to continue :octicons-arrow-right-24:](view-data.md)
+- [Click here to continue :octicons-arrow-right-24:](scenario2.yaml)
 </div>

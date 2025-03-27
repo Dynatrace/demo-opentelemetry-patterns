@@ -4,6 +4,12 @@ repo_url: "https://github.com/dynatrace/demo-opentelemetry-cleanup"
 nav:
   - '1. About': index.md
   - '2. Getting Started': getting-started.md
+  - '3. Start Demo': start-demo.md
+  - 'Scenarios':
+    - 'Batching Telemetry': scenario1.md
+    - 'Add File and OS Information': scenario2.md
+    - 'Set Log Timestamps': scenario3.md
+    - 'Set Default Log Severity': scenario4.md
   - '8. Cleanup': cleanup.md
   - '9. Resources': resources.md
   - "10. What's Next?": whats-next.md

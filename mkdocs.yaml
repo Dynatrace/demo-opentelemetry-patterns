@@ -11,6 +11,7 @@ nav:
     - 'Set Log Timestamps': scenario3.md
     - 'Set Default Log Severity': scenario4.md
     - 'Set Log Severity based on Log Content': scenario5.md
+    - 'Conditionally adding Key/Value pairs based on Log Content': scenario6.md
   - '8. Cleanup': cleanup.md
   - '9. Resources': resources.md
   - "10. What's Next?": whats-next.md

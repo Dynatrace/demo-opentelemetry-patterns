@@ -62,7 +62,7 @@ Body: Str(My third dummy log line...)
 
 ## View Data in Dynatrace
 
-Click the `Run` button again on the DQL tile you created in scenario 1. You should see the new data.
+Click the `Run` button again on the DQL tile. You should see the new data.
 
 Reminder, the DQL statement is:
 

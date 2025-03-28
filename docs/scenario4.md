@@ -66,7 +66,7 @@ Body: Str(My fourth dummy log line...)
 
 ![scenario4 dynatrace results](images/scenario4-dql.png)
 
-Click the `Run` button again on the DQL tile you created in scenario 1. You should see the new data.
+Click the `Run` button again on the DQL tile. You should see the new data.
 
 Reminder, the DQL statement is:
 

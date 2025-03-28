@@ -1,6 +1,6 @@
 # Setting severity / status based on log content
 
---8<-- "snippets/bizevent-scenario4.js"
+--8<-- "snippets/bizevent-scenario5.js"
 
 On occasion, you will need to adjust the severity of the log based on the actual log line content.
 
@@ -46,7 +46,7 @@ Body: Str(My fourth dummy log line...)
 
 ![scenario5 dynatrace results](images/scenario5-dql.png)
 
-Click the `Run` button again on the DQL tile you created in scenario 1. You should see the new data.
+Click the `Run` button again on the DQL tile. You should see the new data.
 
 Reminder, the DQL statement is:
 

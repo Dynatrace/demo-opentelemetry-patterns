@@ -54,11 +54,9 @@ View the collector terminal window and verify that the `timestamp` and `observed
 
 ```
 ...
-ObservedTimestamp: 2025-03-27 06:28:50.507084067 +0000 UTC
-Timestamp: 2025-03-27 06:28:50.507083807 +0000 UTC
-SeverityText: 
-SeverityNumber: Unspecified(0)
-Body: Str(My third dummy log line...)
+SeverityText: INFO
+SeverityNumber: Info(9)
+Body: Str(My fourth dummy log line...)
 ...
 ```
 
@@ -66,7 +64,7 @@ Body: Str(My third dummy log line...)
 
 --8<-- "snippets/enlarge-image-tip.md"
 
-![scenario2 dynatrace results](images/scenario2-dql.png)
+![scenario4 dynatrace results](images/scenario4-dql.png)
 
 Click the `Run` button again on the DQL tile you created in scenario 1. You should see the new data.
 
@@ -80,5 +78,5 @@ fetch logs
 Congratulations! The log lines now have the correct timestamps.
 
 <div class="grid cards" markdown>
-- [Click here to continue :octicons-arrow-right-24:](scenario4.yaml)
+- [Click here to continue :octicons-arrow-right-24:](scenario5.md)
 </div>

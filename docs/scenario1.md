@@ -66,5 +66,5 @@ fetch logs
 Notice that the batching was entirely transparent to you.
 
 <div class="grid cards" markdown>
-- [Click here to continue :octicons-arrow-right-24:](scenario2.yaml)
+- [Click here to continue :octicons-arrow-right-24:](scenario2.md)
 </div>

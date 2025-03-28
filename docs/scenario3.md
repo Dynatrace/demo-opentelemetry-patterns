@@ -62,10 +62,6 @@ Body: Str(My third dummy log line...)
 
 ## View Data in Dynatrace
 
---8<-- "snippets/enlarge-image-tip.md"
-
-![scenario2 dynatrace results](images/scenario2-dql.png)
-
 Click the `Run` button again on the DQL tile you created in scenario 1. You should see the new data.
 
 Reminder, the DQL statement is:

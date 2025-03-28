@@ -19,7 +19,7 @@ processors:
           - set(log.time, Now()) 
           - set(log.observed_time, Now())
           - set(log.severity_text, "INFO") where IsMatch(log.severity_text, "")
-          - set(log.severity_number, 9) # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
+          - set(log.severity_number, SEVERITY_NUMBER_INFO) # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
 
 exporters:
   debug:

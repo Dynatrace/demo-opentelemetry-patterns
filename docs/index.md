@@ -1,4 +1,4 @@
-# Dynatrace Observability Lab: Syslog Ingest
+# Dynatrace Observability Lab: OpenTelemetry Cleanup
 
 --8<-- "snippets/disclaimer.md"
 --8<-- "snippets/view-code.md"

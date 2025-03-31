@@ -1,0 +1,47 @@
+receivers:
+  filelog:
+    include: /workspaces/${env:RepositoryName}/file.log
+    include_file_name: true
+    include_file_path: true
+
+processors:
+  batch:
+    send_batch_size: 500
+    timeout: 2s
+  resourcedetection:
+    detectors: ["system"]
+    system:
+      hostname_sources: ["os"]
+  transform:
+    log_statements:
+      - context: log
+        statements:
+          - set(log.severity_text, "INFO") where IsMatch(log.severity_text, "")
+          - set(log.severity_number, SEVERITY_NUMBER_INFO) where IsMatch(log.severity_text, "INFO") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
+          - set(log.severity_text, "ERROR") where IsMatch(body, ".*something is broken.*")
+          - set(log.severity_number, SEVERITY_NUMBER_ERROR) where IsMatch(body, ".*something is broken.*") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
+
+  # Drop telemetry if...
+  # Condition are an OR
+  filter:
+    # Ignore error returned by conditions, log them, and continue on to the next condition. This is the recommended mode.
+    error_mode: ignore
+    logs:
+      log_record:
+        - 'severity_text < SEVERITY_TEXT_WARN'
+        - 'severity_number < SEVERITY_NUMBER_WARN'
+
+exporters:
+  debug:
+    verbosity: detailed
+
+  otlphttp/dynatrace:
+    endpoint: "DT_ENDPOINT_PLACEHOLDER/api/v2/otlp"
+    headers: 
+      Authorization: "Api-Token ${env:DT_API_TOKEN}"
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [resourcedetection, transform, filter, batch]
+      exporters: [debug, otlphttp/dynatrace]

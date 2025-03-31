@@ -59,23 +59,10 @@ Attributes:
 
 ## View Data in Dynatrace
 
---8<-- "snippets/enlarge-image-tip.md"
+As you may expect, there is nothing to see in Dynatrace.
 
-![scenario5 dynatrace results](images/scenario7-dql.png)
+Congratulations! You can now prevent logs from being persisted based on their content.
 
-There are a lot of columns shown so either scroll all the way to the right to see the `support.tier` column.
-
-Or cleanup the columns by choosing to keep only certain columns:
-
-```
-fetch logs
-| filter contains(content, "dummy log line")
-| fieldsKeep timestamp, content, host.name, log.file.name, log.file.path, os.type, support.tier
-```
-
-Click the `Run` button again on the DQL tile. You should see the new data.
-
-Congratulations! You can now add any important Key/Value information as logs flow through the collector.
 
 <div class="grid cards" markdown>
 - [Click here to continue :octicons-arrow-right-24:](scenario9.md)

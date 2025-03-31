@@ -63,7 +63,7 @@ Attributes:
 
 --8<-- "snippets/enlarge-image-tip.md"
 
-![scenario5 dynatrace results](images/scenario6-dql.png)
+![scenario6 dynatrace results](images/scenario6-dql.png)
 
 There are a lot of columns shown so either scroll all the way to the right to see the `support.tier` column.
 

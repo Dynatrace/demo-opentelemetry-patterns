@@ -24,10 +24,12 @@ Run the following command to start the collector:
 !!! tip "Ordering matters"
     Notice the `service.pipelines.logs.processors` definition.
     
-    `filter` is defined first so log lines are filtered first before further processing.
+    Unlike [scenario 8](scenario8.md), the logs are `transform`ed first then filtered.
+    
+    This is to ensure the logs have the correct severity level before a filtering decision is made.
 
     ```
-    processors: [filter, resourcedetection, transform, batch]
+    processors: [resourcedetection, transform, filter, batch]
     ```
 
 ## Generate Log Data
@@ -49,43 +51,21 @@ My tenth dummy log line. Please investigate - something is broken
 
     Due to the filter processor rules, the `INFO` line will be dropped and ONLY the `ERROR` log line will be sent to Dynatrace.
 
-## Verify Debug Data in Collector Output
-
-View the collector terminal window and verify that there is absolutely no record of the offending line in the collector logs:
-
-
-* `user.tier` piece has been rewritten to `userTier`
-* `support.tier` attribute has been added due to `userTier` being present in the log content
-
-
-```
-...
-Body: Str(My seventh dummy log line from userId=4321 part of userTier=tier3)
-Attributes:
-     ...
-     -> support.tier: Str(bronze)
-...
-```
-
 ## View Data in Dynatrace
 
 --8<-- "snippets/enlarge-image-tip.md"
 
-![scenario5 dynatrace results](images/scenario7-dql.png)
+![scenario9 dynatrace results](images/scenario9-dql.png)
 
-There are a lot of columns shown so either scroll all the way to the right to see the `support.tier` column.
-
-Or cleanup the columns by choosing to keep only certain columns:
 
 ```
 fetch logs
 | filter contains(content, "dummy log line")
-| fieldsKeep timestamp, content, host.name, log.file.name, log.file.path, os.type, support.tier
 ```
 
 Click the `Run` button again on the DQL tile. You should see the new data.
 
-Congratulations! You can now add any important Key/Value information as logs flow through the collector.
+Congratulations! You can now surgically decide on which log lines to store.
 
 <div class="grid cards" markdown>
 - [Click here to continue :octicons-arrow-right-24:](scenario10.md)

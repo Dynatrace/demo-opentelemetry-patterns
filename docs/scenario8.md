@@ -6,7 +6,7 @@ Up to now, we have been processing and rewriting log content as it flows through
 
 What if instead, you simply want to drop any logs if they contain restricted content?
 
-In this scenario, to protect against Personally Identifiable Information (PII) capture, the [filter](https://example.com) processor will be used to drop any log lines containing the word `password` (case insensitive).
+In this scenario, to protect against Personally Identifiable Information (PII) capture, the [filter](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/filterprocessor/README.md){target=_blank} processor will be used to drop any log lines containing the word `password` (case insensitive).
 
 [scenario8.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario8.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
@@ -18,8 +18,8 @@ If you haven't done so already, stop the previous collector process by pressing 
 
 Run the following command to start the collector:
 
-``` { "name": "[background] run otel collector scenario 6" }
-/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario7.yaml
+``` { "name": "[background] run otel collector scenario 8" }
+/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario8.yaml
 ```
 
 ## Generate Log Data
@@ -27,7 +27,7 @@ Run the following command to start the collector:
 Open `file.log` file and add this line then save the file.
 
 ```
-My eigth dummy log line. The password is abc124
+My eighth dummy log line. The password is abc124
 ```
 
 ## Verify Debug Data in Collector Output

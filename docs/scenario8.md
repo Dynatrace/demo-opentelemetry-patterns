@@ -78,5 +78,5 @@ Click the `Run` button again on the DQL tile. You should see the new data.
 Congratulations! You can now add any important Key/Value information as logs flow through the collector.
 
 <div class="grid cards" markdown>
-- [Click here to continue :octicons-arrow-right-24:](scenario7.md)
+- [Click here to continue :octicons-arrow-right-24:](scenario9.md)
 </div>

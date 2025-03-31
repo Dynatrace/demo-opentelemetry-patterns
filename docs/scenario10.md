@@ -26,51 +26,31 @@ Run the following command to start the collector:
 /workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario10.yaml
 ```
 
-!!! tip "Ordering matters"
-    Notice the `service.pipelines.logs.processors` definition.
-    
-    Unlike [scenario 8](scenario8.md), the logs are `transform`ed first then filtered.
-    
-    This is to ensure the logs have the correct severity level before a filtering decision is made.
-
-    ```
-    processors: [resourcedetection, transform, filter, batch]
-    ```
-
 ## Generate Log Data
 
 Open `file.log` file and add these two lines then save the file.
 
 ```
-My ninth dummy log line.
-My tenth dummy log line. Please investigate - something is broken
+My eleventh dummy log line
 ```
-
-!!! tip "Only 1 log line received"
-    You should see only one of these lines in the collector & Dynatrace.
-
-    Both log lines have no explicit severity, but remember the collector rules create severities due to the transform processor.
-
-    * The first line: `My ninth dummy log line.` will be mapped to an `INFO` event.
-    * The second line: `My tenth dummy log line. Please investigate - something is broken` will be mapped to an `ERROR` event.
-
-    Due to the filter processor rules, the `INFO` line will be dropped and ONLY the `ERROR` log line will be sent to Dynatrace.
 
 ## View Data in Dynatrace
 
 --8<-- "snippets/enlarge-image-tip.md"
 
-![scenario9 dynatrace results](images/scenario9-dql.png)
+![scenario9 dynatrace results](images/scenario10-dql.png)
 
 
 ```
 fetch logs
 | filter contains(content, "dummy log line")
+| fieldsKeep timestamp, content, loglevel, team.name, team.email, team.chargecode 
+| sort timestamp desc
 ```
 
 Click the `Run` button again on the DQL tile. You should see the new data.
 
-Congratulations! You can now surgically decide on which log lines to store.
+Congratulations! Every log line from `file.log` will be automatically enriched with the team details.
 
 <div class="grid cards" markdown>
 - [Click here to continue :octicons-arrow-right-24:](scenario10.md)

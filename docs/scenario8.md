@@ -1,23 +1,14 @@
-# Dynamically Re-writing log lines for standardisation
+# Dropping Logs based on Content
 
---8<-- "snippets/bizevent-scenario7.js"
+--8<-- "snippets/bizevent-scenario8.js"
 
-Imagine a new starter joins the development team.
+Up to now, we have been processing and rewriting log content as it flows through the collector.
 
-They are informed of the team standards - that logs with `userTier=...` are required to make the Observability system work.
+What if instead, you simply want to drop any logs if they contain restricted content?
 
-However, they forget and so write their logs with `user.tier=...` instead.
+In this scenario, to protect against Personally Identifiable Information (PII) capture, the [filter](https://example.com) processor will be used to drop any log lines containing the word `password` (case insensitive).
 
-!!! question
-    Can the OpenTelemetry collector fix this?
-
-Yes! The transform processor can be used to rewrite the log line in real time so `user.tier` becomes `userTier` with this statement:
-
-```
-replace_pattern(body, "user.tier=", "userTier=")
-```
-
-[scenario7.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario7.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario8.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario8.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 
@@ -36,7 +27,7 @@ Run the following command to start the collector:
 Open `file.log` file and add this line then save the file.
 
 ```
-My seventh dummy log line from userId=4321 part of user.tier=tier3
+My eigth dummy log line. The password is abc124
 ```
 
 ## Verify Debug Data in Collector Output
@@ -78,5 +69,5 @@ Click the `Run` button again on the DQL tile. You should see the new data.
 Congratulations! You can now add any important Key/Value information as logs flow through the collector.
 
 <div class="grid cards" markdown>
-- [Click here to continue :octicons-arrow-right-24:](scenario8.md)
+- [Click here to continue :octicons-arrow-right-24:](scenario7.md)
 </div>

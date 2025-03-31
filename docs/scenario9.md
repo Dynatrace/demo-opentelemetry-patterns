@@ -32,11 +32,22 @@ Run the following command to start the collector:
 
 ## Generate Log Data
 
-Open `file.log` file and add this line then save the file.
+Open `file.log` file and add these two lines then save the file.
 
 ```
-My eighth dummy log line. The password is abc124
+My ninth dummy log line.
+My tenth dummy log line. Please investigate - something is broken
 ```
+
+!!! tip "Only 1 log line received"
+    You should see only one of these lines in the collector & Dynatrace.
+
+    Both log lines have no explicit severity, but remember the collector rules create severities due to the transform processor.
+
+    * The first line: `My ninth dummy log line.` will be mapped to an `INFO` event.
+    * The second line: `My tenth dummy log line. Please investigate - something is broken` will be mapped to an `ERROR` event.
+
+    Due to the filter processor rules, the `INFO` line will be dropped and ONLY the `ERROR` log line will be sent to Dynatrace.
 
 ## Verify Debug Data in Collector Output
 

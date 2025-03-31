@@ -28,7 +28,6 @@ processors:
     error_mode: ignore
     logs:
       log_record:
-        - 'severity_text < SEVERITY_TEXT_WARN'
         - 'severity_number < SEVERITY_NUMBER_WARN'
 
 exporters:

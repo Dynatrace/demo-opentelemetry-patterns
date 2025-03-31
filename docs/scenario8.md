@@ -22,6 +22,15 @@ Run the following command to start the collector:
 /workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario8.yaml
 ```
 
+!!! tip "Ordering matters"
+    Notice the `service.pipelines.logs.processors` definition.
+    
+    `filter` is defined first so log lines are filtered first before further processing.
+
+    ```
+    processors: [filter, resourcedetection, transform, batch]
+    ```
+
 ## Generate Log Data
 
 Open `file.log` file and add this line then save the file.
@@ -32,7 +41,7 @@ My eighth dummy log line. The password is abc124
 
 ## Verify Debug Data in Collector Output
 
-View the collector terminal window and verify two things:
+View the collector terminal window and verify that there is absolutely no record of the offending line in the collector logs:
 
 
 * `user.tier` piece has been rewritten to `userTier`

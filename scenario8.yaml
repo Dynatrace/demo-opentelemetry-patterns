@@ -48,5 +48,5 @@ service:
   pipelines:
     logs:
       receivers: [filelog]
-      processors: [resourcedetection, filter, transform, batch]
+      processors: [filter, resourcedetection, transform, batch]
       exporters: [debug, otlphttp/dynatrace]

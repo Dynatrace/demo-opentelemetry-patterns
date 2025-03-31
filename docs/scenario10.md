@@ -4,7 +4,7 @@
 
 Adding ownership information to logs is critical to enable downstream usecases and further automation. If you know where a log comes from and who "owns" it (in other words, who can help action or fix the issue) that becomes very powerful for cross-charging Observability data ingest, automation, triggering workflows and AI agents.
 
-In the prior scenarios, we've been enriching each log line, line by line. Often though, you'll know that one team / department is responsbile for an entire log file (or set of log files). In this case, it makes sense to enrich at the log file level. The configuration is simpler and easier to read.
+In the prior scenarios, logs were being enriched line by line. Often though, you'll know that one team / department is responsbile for an entire log file (or set of log files). In this case, it makes sense to enrich at the log file level. The configuration is simpler and easier to read.
 
 Imagine that the `file.log` file (and every log line that comes from it:
 
@@ -22,8 +22,8 @@ If you haven't done so already, stop the previous collector process by pressing 
 
 Run the following command to start the collector:
 
-``` { "name": "[background] run otel collector scenario 8" }
-/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario9.yaml
+``` { "name": "[background] run otel collector scenario 10" }
+/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario10.yaml
 ```
 
 !!! tip "Ordering matters"

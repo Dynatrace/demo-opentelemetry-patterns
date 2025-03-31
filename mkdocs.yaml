@@ -15,6 +15,7 @@ nav:
     - '7. Dynamically re-writing Log Lines for Standardisation': scenario7.md
     - '8. Drop Logs containing a password': scenario8.md
     - '9. Drop Low Value Logs': scenario9.md
+    - '10. Enriching Logs with Ownership Information': scenario10.md
   - '8. Cleanup': cleanup.md
   - '9. Resources': resources.md
   - "10. What's Next?": whats-next.md

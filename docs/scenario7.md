@@ -1,29 +1,23 @@
-# Creating Attributes based on log content
+# Dynamically Re-writing log lines for standardisation
 
---8<-- "snippets/bizevent-scenario6.js"
+--8<-- "snippets/bizevent-scenario7.js"
 
-One of the benefits of an OpenTelemetry log is that it is structured. Rather than just a single log line with some text, the collector transforms it into a structured object (eg. JSON).
+Imagine a new starter joins the development team.
 
-This makes it possible to attach new `attributes` to a log line. These attributes are key/value pairs of information that you care about.
+They are informed of the team standards - that logs with `userTier=...` are required to make the Observability system work.
 
-In this scenario, you will add a new Key/Value attribute conditionally based on the content of the log line.
+However, they forget and so write their logs with `user.tier=...` instead.
 
-Imagine this log line:
+!!! question
+    Can the OpenTelemetry collector fix this?
+
+Yes! The transform processor can be used to rewrite the log line in real time so `user.tier` becomes `userTier` with this statement:
 
 ```
-My dummy log line from userId=123 part of userTier=tier1
+replace_pattern(body, "user.tier=", "userTier=")
 ```
 
-That is somewhat useful, but it is probably more useful for a human if we instantly know that `tier1` customers qualify for the `gold` level support tier.
-
-The OpenTelemetry collector can read the log line and add a new Key/Value pair:
-```
-support.tier: gold
-```
-
-when the log line contains `userTier=tier1`. `userTier2 == silver` and `userTier3 == bronze` and so on.
-
-[scenario6.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario6.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario7.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario7.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 
@@ -34,7 +28,7 @@ If you haven't done so already, stop the previous collector process by pressing 
 Run the following command to start the collector:
 
 ``` { "name": "[background] run otel collector scenario 6" }
-/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario6.yaml
+/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario7.yaml
 ```
 
 ## Generate Log Data
@@ -42,7 +36,7 @@ Run the following command to start the collector:
 Open `file.log` file and add this line then save the file.
 
 ```
-My sixth dummy log line from userId=123 part of userTier=tier1
+My seventh dummy log line from userId=4321 part of user.tier=tier3
 ```
 
 ## Verify Debug Data in Collector Output

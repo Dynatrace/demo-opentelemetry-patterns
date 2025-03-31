@@ -19,7 +19,7 @@ processors:
           - set(log.time, Now()) 
           - set(log.observed_time, Now())
           - set(log.severity_text, "INFO") where IsMatch(log.severity_text, "")
-          - set(log.severity_number, SEVERITY_NUMBER_INFO) where IsMatch(log.severity_text, "") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
+          - set(log.severity_number, SEVERITY_NUMBER_INFO) where IsMatch(log.severity_text, "INFO") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
           - set(log.severity_text, "ERROR") where IsMatch(body, ".*something is broken.*")
           - set(log.severity_number, SEVERITY_NUMBER_ERROR) where IsMatch(body, ".*something is broken.*") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
           - set(log.attributes["support.tier"], "gold") where IsMatch(body, ".*userTier=tier1.*")

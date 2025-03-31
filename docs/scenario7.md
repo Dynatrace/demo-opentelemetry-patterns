@@ -41,15 +41,19 @@ My seventh dummy log line from userId=4321 part of user.tier=tier3
 
 ## Verify Debug Data in Collector Output
 
-View the collector terminal window and verify that the `timestamp` and `observed timestamp` fields are now correctly set to the current time and date:
+View the collector terminal window and verify two things:
+
+
+* `user.tier` piece has been rewritten to `userTier`
+* `support.tier` attribute has been added due to `userTier` being present in the log content
+
 
 ```
 ...
-Body: Str(My sixth dummy log line from userId=123 part of userTier=tier1)
+Body: Str(My seventh dummy log line from userId=4321 part of userTier=tier3)
 Attributes:
-     -> log.file.name: Str(file.log)
-     -> log.file.path: Str(/workspaces/demo-opentelemetry-cleanup/file.log)
-     -> support.tier: Str(gold)
+     ...
+     -> support.tier: Str(bronze)
 ...
 ```
 
@@ -57,7 +61,7 @@ Attributes:
 
 --8<-- "snippets/enlarge-image-tip.md"
 
-![scenario5 dynatrace results](images/scenario6-dql.png)
+![scenario5 dynatrace results](images/scenario7-dql.png)
 
 There are a lot of columns shown so either scroll all the way to the right to see the `support.tier` column.
 

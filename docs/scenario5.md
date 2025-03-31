@@ -30,13 +30,13 @@ My fifth dummy log line. Please investigate - something is broken.
 
 ## Verify Debug Data in Collector Output
 
-View the collector terminal window and verify that the `timestamp` and `observed timestamp` fields are now correctly set to the current time and date:
+View the collector terminal window and verify that the `SeverityText` and `SeverityNumber` fields are now correctly set.
 
 ```
 ...
-SeverityText: INFO
-SeverityNumber: Info(9)
-Body: Str(My fourth dummy log line...)
+SeverityText: ERROR
+SeverityNumber: Error(17)
+Body: Str(My fifth dummy log line. Please investigate - something is broken.)
 ...
 ```
 

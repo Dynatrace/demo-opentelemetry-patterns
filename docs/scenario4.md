@@ -50,7 +50,7 @@ My fourth dummy log line...
 
 ## Verify Debug Data in Collector Output
 
-View the collector terminal window and verify that the `timestamp` and `observed timestamp` fields are now correctly set to the current time and date:
+View the collector terminal window and verify that the `SeverityText` and `SeverityNumber` fields are now correctly set:
 
 ```
 ...

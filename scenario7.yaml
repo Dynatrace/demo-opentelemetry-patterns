@@ -23,9 +23,9 @@ processors:
           - set(log.severity_text, "ERROR") where IsMatch(body, ".*something is broken.*")
           - set(log.severity_number, SEVERITY_NUMBER_ERROR) where IsMatch(body, ".*something is broken.*") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
           - replace_pattern(body, "user.tier=", "userTier=")
-          - set(log.attributes["support-tier"], "gold") where IsMatch(body, ".*userTier=tier1.*")
-          - set(log.attributes["support-tier"], "silver") where IsMatch(body, ".*userTier=tier2.*")
-          - set(log.attributes["support-tier"], "bronze") where IsMatch(body, ".*userTier=tier3.*")
+          - set(log.attributes["support.tier"], "gold") where IsMatch(body, ".*userTier=tier1.*")
+          - set(log.attributes["support.tier"], "silver") where IsMatch(body, ".*userTier=tier2.*")
+          - set(log.attributes["support.tier"], "bronze") where IsMatch(body, ".*userTier=tier3.*")
 
   # Drop telemetry if...
   # Condition are an OR

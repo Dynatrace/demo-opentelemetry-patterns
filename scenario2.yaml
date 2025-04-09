@@ -1,6 +1,6 @@
 receivers:
   filelog:
-    include: /workspaces/${env:RepositoryName}/file.log
+    include: file.log
     include_file_name: true
     include_file_path: true
 

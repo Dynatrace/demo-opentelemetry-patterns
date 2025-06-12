@@ -62,4 +62,3 @@ markdown_extensions:
       base_path: ["docs"]
 plugins:
     - search
-    - markdownextradata

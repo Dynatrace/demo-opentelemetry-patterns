@@ -25,7 +25,8 @@ The collector requires a configuration file. There are different configuration f
 
 Understanding the configuration of the collector is key to understanding how the data gets from your devices into Dynatrace.
 
-Note: You do not need to modify `scenario*.yaml` files.
+!!! info "Do not modify scenario files"
+    You do not need to modify `scenario*.yaml` files.
 
 #### Receivers
 

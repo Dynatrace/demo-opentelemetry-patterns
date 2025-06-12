@@ -24,13 +24,6 @@ This hands on Observability Lab will demonstrate various tips and tricks on how 
 
 The Dynatrace collector is a fully supported distribution of the open source upstream [OpenTelemetry collector](https://opentelemetry.io/docs/collector/){target=_blank}. The Dynatrace collector contains no vendor specific components.
 
-## Compatibility
-
-| Deployment         | Tutorial Compatible |
-|--------------------|---------------------|
-| Dynatrace Managed  | ✔️                 |
-| Dynatrace SaaS     | ✔️                 |
-
 <div class="grid cards" markdown>
 - [Click here to begin :octicons-arrow-right-24:](getting-started.md)
 </div>

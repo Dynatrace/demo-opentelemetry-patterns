@@ -7,7 +7,7 @@ Click this button to launch the demo in a new tab.
 
 Provide the tenant ID and API token via the form. These will be encrypted and stored in GitHub. They will also automatically be set as environment variables in the codespace.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dynatrace/demo-opentelemetry-cleanup){target=_blank}
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dynatrace/demo-opentelemetry-patterns){target=_blank}
 
 ## Understand Demo Environment
 

@@ -11,7 +11,7 @@ In this scenario, the collector will be used to enrich the log lines to include 
 * Log file name
 * Log file path
 
-[scenario2.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario2.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario2.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario2.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 
@@ -48,7 +48,7 @@ Resource attributes:
 Body: Str(My second dummy log line...)
 Attributes:
      -> log.file.name: Str(file.log)
-     -> log.file.path: Str(/workspaces/demo-opentelemetry-cleanup/file.log)
+     -> log.file.path: Str(/workspaces/demo-opentelemetry-patterns/file.log)
 ```
 
 Notice that `host.name` and `os.type` have been added as resource attributes. The collector performed this lookup and attached them automatically.

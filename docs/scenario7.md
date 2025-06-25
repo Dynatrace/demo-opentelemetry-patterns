@@ -17,7 +17,7 @@ Yes! The transform processor can be used to rewrite the log line in real time so
 replace_pattern(body, "user.tier=", "userTier=")
 ```
 
-[scenario7.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario7.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario7.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario7.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 

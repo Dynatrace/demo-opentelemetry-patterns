@@ -8,7 +8,7 @@ What if instead, you simply want to drop any logs if they contain restricted con
 
 In this scenario, to protect against Personally Identifiable Information (PII) capture, the [filter](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/filterprocessor/README.md){target=_blank} processor will be used to drop any log lines containing the word `password` (case insensitive).
 
-[scenario8.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario8.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario8.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario8.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 

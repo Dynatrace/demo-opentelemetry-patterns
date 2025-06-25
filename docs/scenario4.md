@@ -10,7 +10,7 @@ These severities will also be used in later scenarios to (for example) condition
 
 For now, let's assume that, where a severity is not explicitly set (all of our log lines), we want to default the lines to an `INFO` level log line.
 
-[scenario4.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario4.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario4.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario4.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Look Again
 
@@ -25,7 +25,7 @@ SeverityNumber: Unspecified(0)
 Body: Str(My third dummy log line...)
 Attributes:
      -> log.file.name: Str(file.log)
-     -> log.file.path: Str(/workspaces/demo-opentelemetry-cleanup/file.log)
+     -> log.file.path: Str(/workspaces/demo-opentelemetry-patterns/file.log)
 ```
 
 ## Stop Previous Collector

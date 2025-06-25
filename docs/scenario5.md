@@ -6,7 +6,7 @@ On occasion, you will need to adjust the severity of the log based on the actual
 
 For example, a log line that reads: `Please investigate - something is broken` is mistakenly sent as an `INFO` level event when it really should be an `ERROR`.
 
-[scenario5.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario5.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario5.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario5.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 

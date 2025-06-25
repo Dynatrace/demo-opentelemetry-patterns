@@ -8,7 +8,7 @@ The collector and Dynatrace will make a best-effort guesses at the correct times
 
 To do this we will tell the collector to set two fields: `timestamp` and `observed timestamp` to the current timestamp (ie. `Now`).
 
-[scenario3.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario3.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario3.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario3.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Look Again
 
@@ -23,7 +23,7 @@ SeverityNumber: Unspecified(0)
 Body: Str(My second dummy log line...)
 Attributes:
      -> log.file.name: Str(file.log)
-     -> log.file.path: Str(/workspaces/demo-opentelemetry-cleanup/file.log)
+     -> log.file.path: Str(/workspaces/demo-opentelemetry-patterns/file.log)
 ```
 
 ## Stop Previous Collector

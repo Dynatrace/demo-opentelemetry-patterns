@@ -12,7 +12,7 @@ Imagine that the `file.log` file (and every log line that comes from it:
 * Has an email address of `team@example.com` for support / issues
 * `teamA` has an team code of `ABC556D` (useful for cross-charging and ticket routing)
 
-[scenario10.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario10.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario10.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario10.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 

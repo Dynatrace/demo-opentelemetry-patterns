@@ -1,5 +1,5 @@
-# OpenTelemetry Cleanup
+# OpenTelemetry Patterns
 
-A repository with various example scenarios showing how to cleanup telemetry that flows through the OpenTelemetry collector.
+A repository with various example patterns showing how to leverage the OpenTelemetry collector for telemetry processing, cleanup, enrichment etc.
 
-## [Start the hands-on here >>](https://dynatrace.github.io/demo-opentelemetry-cleanup)
+## [Start the hands-on here >>](https://dynatrace.github.io/demo-opentelemetry-patterns)

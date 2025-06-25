@@ -877,7 +877,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Setting the correct log severity is important for downstream users to understand how "bad" the log line is - is it simply an informational message or a serious error?</p>
 <p>These severities will also be used in later scenarios to (for example) conditionally drop or re-route logs based on their severity.</p>
 <p>For now, let's assume that, where a severity is not explicitly set (all of our log lines), we want to default the lines to an <code>INFO</code> level log line.</p>
-<p><a href="https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario4.yaml" target="_blank">scenario4.yaml</a> shows the OpenTelemetry collector configuration to achieve this.</p>
+<p><a href="https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario4.yaml" target="_blank">scenario4.yaml</a> shows the OpenTelemetry collector configuration to achieve this.</p>
 <h2 id="look-again">Look Again<a class="headerlink" href="#look-again" title="Permanent link">#</a></h2>
 <p>Look again at the collector debug output from scenario 3. You should see that the <code>SeverityText</code> and <code>SeverityNumber</code> are both empty / unspecified.</p>
 <div class="highlight"><pre><span></span><code>LogRecord #1
@@ -888,7 +888,7 @@ SeverityNumber: Unspecified(0)
 Body: Str(My third dummy log line...)
 Attributes:
      -&gt; log.file.name: Str(file.log)
-     -&gt; log.file.path: Str(/workspaces/demo-opentelemetry-cleanup/file.log)
+     -&gt; log.file.path: Str(/workspaces/demo-opentelemetry-patterns/file.log)
 </code></pre></div>
 <h2 id="stop-previous-collector">Stop Previous Collector<a class="headerlink" href="#stop-previous-collector" title="Permanent link">#</a></h2>
 <p>If you haven't done so already, stop the previous collector process by pressing <code>Ctrl + C</code>.</p>

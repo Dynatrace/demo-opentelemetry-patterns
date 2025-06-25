@@ -858,7 +858,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Up to now, we have been processing and rewriting log content as it flows through the collector.</p>
 <p>What if instead, you simply want to drop any logs if they contain restricted content?</p>
 <p>In this scenario, to protect against Personally Identifiable Information (PII) capture, the <a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/filterprocessor/README.md" target="_blank">filter</a> processor will be used to drop any log lines containing the word <code>password</code> (case insensitive).</p>
-<p><a href="https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario8.yaml" target="_blank">scenario8.yaml</a> shows the OpenTelemetry collector configuration to achieve this.</p>
+<p><a href="https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario8.yaml" target="_blank">scenario8.yaml</a> shows the OpenTelemetry collector configuration to achieve this.</p>
 <h2 id="stop-previous-collector">Stop Previous Collector<a class="headerlink" href="#stop-previous-collector" title="Permanent link">#</a></h2>
 <p>If you haven't done so already, stop the previous collector process by pressing <code>Ctrl + C</code>.</p>
 <h2 id="start-collector">Start Collector<a class="headerlink" href="#start-collector" title="Permanent link">#</a></h2>

@@ -876,7 +876,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>The log lines ingested from <a href="../scenario1/">scenario 1</a> and <a href="../scenario2/">scenario 2</a> contain no timestamps.</p>
 <p>The collector and Dynatrace will make a best-effort guesses at the correct timestamp, but it is always best to set the timestamps explicitly.</p>
 <p>To do this we will tell the collector to set two fields: <code>timestamp</code> and <code>observed timestamp</code> to the current timestamp (ie. <code>Now</code>).</p>
-<p><a href="https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario3.yaml" target="_blank">scenario3.yaml</a> shows the OpenTelemetry collector configuration to achieve this.</p>
+<p><a href="https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario3.yaml" target="_blank">scenario3.yaml</a> shows the OpenTelemetry collector configuration to achieve this.</p>
 <h2 id="look-again">Look Again<a class="headerlink" href="#look-again" title="Permanent link">#</a></h2>
 <p>Look again at the collector debug output from scenario 2. You should see that the timestamp is actually set to 1970.</p>
 <div class="highlight"><pre><span></span><code>LogRecord #1
@@ -887,7 +887,7 @@ SeverityNumber: Unspecified(0)
 Body: Str(My second dummy log line...)
 Attributes:
      -&gt; log.file.name: Str(file.log)
-     -&gt; log.file.path: Str(/workspaces/demo-opentelemetry-cleanup/file.log)
+     -&gt; log.file.path: Str(/workspaces/demo-opentelemetry-patterns/file.log)
 </code></pre></div>
 <h2 id="stop-previous-collector">Stop Previous Collector<a class="headerlink" href="#stop-previous-collector" title="Permanent link">#</a></h2>
 <p>If you haven't done so already, stop the previous collector process by pressing <code>Ctrl + C</code>.</p>

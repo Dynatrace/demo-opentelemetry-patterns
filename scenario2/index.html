@@ -863,7 +863,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>Log file name</li>
 <li>Log file path</li>
 </ul>
-<p><a href="https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario2.yaml" target="_blank">scenario2.yaml</a> shows the OpenTelemetry collector configuration to achieve this.</p>
+<p><a href="https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario2.yaml" target="_blank">scenario2.yaml</a> shows the OpenTelemetry collector configuration to achieve this.</p>
 <h2 id="stop-previous-collector">Stop Previous Collector<a class="headerlink" href="#stop-previous-collector" title="Permanent link">#</a></h2>
 <p>If you haven't done so already, stop the previous collector process by pressing <code>Ctrl + C</code>.</p>
 <h2 id="start-collector">Start Collector<a class="headerlink" href="#start-collector" title="Permanent link">#</a></h2>
@@ -886,7 +886,7 @@ Resource attributes:
 Body: Str(My second dummy log line...)
 Attributes:
      -&gt; log.file.name: Str(file.log)
-     -&gt; log.file.path: Str(/workspaces/demo-opentelemetry-cleanup/file.log)
+     -&gt; log.file.path: Str(/workspaces/demo-opentelemetry-patterns/file.log)
 </code></pre></div>
 <p>Notice that <code>host.name</code> and <code>os.type</code> have been added as resource attributes. The collector performed this lookup and attached them automatically.
 Notice too that the log record has new attributes of <code>log.file.name</code> and <code>log.file.path</code>.</p>

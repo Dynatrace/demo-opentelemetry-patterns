@@ -1,11 +1,11 @@
-# Dynatrace Observability Lab: OpenTelemetry Cleanup
+# Dynatrace Observability Lab: OpenTelemetry Patterns
 
 --8<-- "snippets/disclaimer.md"
 --8<-- "snippets/view-code.md"
 --8<-- "snippets/bizevent-homepage.js"
 --8<-- "snippets/openpipeline.md"
 
-![scenario architecture](images/demo-opentelemetry-cleanup-architecture.jpg)
+![scenario architecture](images/demo-opentelemetry-patterns-architecture.jpg)
 
 There is a **lot** of telemetry data. Reducing, removing and standardising the telemetry data that you ingest will save cost, increase signal to noise ratio and help make your Observability platform a cleaner, more useful place.
 

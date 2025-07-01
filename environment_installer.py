@@ -44,4 +44,4 @@ if CODESPACE_NAME.startswith("dttest-"):
     # Testing finished. Destroy the codespace
     run_command(["gh", "codespace", "delete", "--codespace", CODESPACE_NAME, "--force"])
 else:
-    send_startup_ping(demo_name="demo-opentelemetry-cleanup")
+    send_startup_ping(demo_name="demo-opentelemetry-patterns")

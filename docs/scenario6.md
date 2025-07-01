@@ -23,7 +23,7 @@ support.tier: gold
 
 when the log line contains `userTier=tier1`. `userTier2 == silver` and `userTier3 == bronze` and so on.
 
-[scenario6.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario6.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario6.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario6.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 
@@ -54,7 +54,7 @@ View the collector terminal window and verify that the `support.tier` attribute 
 Body: Str(My sixth dummy log line from userId=123 part of userTier=tier1)
 Attributes:
      -> log.file.name: Str(file.log)
-     -> log.file.path: Str(/workspaces/demo-opentelemetry-cleanup/file.log)
+     -> log.file.path: Str(/workspaces/demo-opentelemetry-patterns/file.log)
      -> support.tier: Str(gold)
 ...
 ```

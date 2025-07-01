@@ -7,7 +7,7 @@ Controlling Observability costs is important.
 In this scenario, only logs with a severity level of `WARN` or above (eg. `Warning`, `Error` or `Fatal`)
 Up to now, we have been processing and rewriting log content as it flows through the collector.
 
-[scenario9.yaml](https://github.com/Dynatrace/demo-opentelemetry-cleanup/blob/main/scenario9.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
+[scenario9.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario9.yaml){target=_blank} shows the OpenTelemetry collector configuration to achieve this.
 
 ## Stop Previous Collector
 

@@ -6,7 +6,7 @@ Adding ownership information to logs is critical to enable downstream usecases a
 
 In the prior scenarios, logs were being enriched line by line. Often though, you'll know that one team / department is responsbile for an entire log file (or set of log files). In this case, it makes sense to enrich at the log file level. The configuration is simpler and easier to read.
 
-Imagine that the `file.log` file (and every log line that comes from it:
+Imagine that the `file.log` file (and every log line that comes from it):
 
 * Is owned by `TeamA`
 * Has an email address of `team@example.com` for support / issues
@@ -38,7 +38,7 @@ My eleventh dummy log line
 
 --8<-- "snippets/enlarge-image-tip.md"
 
-![scenario9 dynatrace results](images/scenario10-dql.png)
+![scenario10 dynatrace results](images/scenario10-dql.png)
 
 
 ```
@@ -53,5 +53,5 @@ Click the `Run` button again on the DQL tile. You should see the new data.
 Congratulations! Every log line from `file.log` will be automatically enriched with the team details.
 
 <div class="grid cards" markdown>
-- [Click here to continue :octicons-arrow-right-24:](scenario10.md)
+- [Click here to continue :octicons-arrow-right-24:](scenario11.md)
 </div>

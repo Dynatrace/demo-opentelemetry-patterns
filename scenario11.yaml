@@ -1,0 +1,32 @@
+receivers:
+  filelog:
+    include: /workspaces/${env:RepositoryName}/file.log
+    include_file_name: true
+    include_file_path: true
+    attributes:
+      team.name: teamA
+      team.email: teamA@example.com
+      team.chargecode: ABC556D
+processors:
+  batch:
+    send_batch_size: 500
+    timeout: 2s
+  resourcedetection:
+    detectors: ["system"]
+    system:
+      hostname_sources: ["os"]
+
+exporters:
+  debug:
+    verbosity: detailed
+
+  otlphttp/dynatrace:
+    endpoint: "DT_ENDPOINT_PLACEHOLDER/api/v2/otlp"
+    headers: 
+      Authorization: "Api-Token ${env:DT_API_TOKEN}"
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [resourcedetection, batch]
+      exporters: [debug, otlphttp/dynatrace]

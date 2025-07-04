@@ -21,6 +21,7 @@ This hands on Observability Lab will demonstrate various tips and tricks on how 
 * Logs: Dropping logs based on log content
 * Logs: Dropping low value logs
 * Logs: Enriching logs with team / ownership metadata
+* Logs: Extracting Metrics from Logs
 
 The Dynatrace collector is a fully supported distribution of the open source upstream [OpenTelemetry collector](https://opentelemetry.io/docs/collector/){target=_blank}. The Dynatrace collector contains no vendor specific components.
 

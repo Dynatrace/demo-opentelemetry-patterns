@@ -12,7 +12,7 @@
         <link rel="prev" href="../scenario9/">
       
       
-        <link rel="next" href="../cleanup/">
+        <link rel="next" href="../scenario11/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -676,6 +676,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11. Extracting Metrics from Logs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -833,13 +856,13 @@
 <h1 id="enrich-with-ownership">Enrich with Ownership<a class="headerlink" href="#enrich-with-ownership" title="Permanent link">#</a></h1>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  dynatrace.sendBizEvent('page_load', {"page": "scenario-9"});
+  dynatrace.sendBizEvent('page_load', {"page": "scenario-10"});
 });
 </script>
 
 <p>Adding ownership information to logs is critical to enable downstream usecases and further automation. If you know where a log comes from and who "owns" it (in other words, who can help action or fix the issue) that becomes very powerful for cross-charging Observability data ingest, automation, triggering workflows and AI agents.</p>
 <p>In the prior scenarios, logs were being enriched line by line. Often though, you'll know that one team / department is responsbile for an entire log file (or set of log files). In this case, it makes sense to enrich at the log file level. The configuration is simpler and easier to read.</p>
-<p>Imagine that the <code>file.log</code> file (and every log line that comes from it:</p>
+<p>Imagine that the <code>file.log</code> file (and every log line that comes from it):</p>
 <ul>
 <li>Is owned by <code>TeamA</code></li>
 <li>Has an email address of <code>team@example.com</code> for support / issues</li>
@@ -861,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p class="admonition-title">Tip</p>
 <p>Right click and "open image in new tab" to see large image</p>
 </div>
-<p><img alt="scenario9 dynatrace results" src="../images/scenario10-dql.png" /></p>
+<p><img alt="scenario10 dynatrace results" src="../images/scenario10-dql.png" /></p>
 <div class="highlight"><pre><span></span><code>fetch logs
 | filter contains(content, &quot;dummy log line&quot;)
 | fieldsKeep timestamp, content, loglevel, team.name, team.email, team.chargecode 
@@ -871,7 +894,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Congratulations! Every log line from <code>file.log</code> will be automatically enriched with the team details.</p>
 <div class="grid cards">
 <ul>
-<li><a href="./">Click here to continue <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span></a></li>
+<li><a href="../scenario11/">Click here to continue <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span></a></li>
 </ul>
 </div>
 

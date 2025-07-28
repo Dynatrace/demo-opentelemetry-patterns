@@ -63,3 +63,5 @@ markdown_extensions:
       base_path: ["docs"]
 plugins:
     - search
+extra_css:
+  - overrides/assets/stylesheets/extra.css

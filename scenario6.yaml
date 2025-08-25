@@ -31,7 +31,7 @@ exporters:
     verbosity: detailed
 
   otlphttp/dynatrace:
-    endpoint: "DT_ENDPOINT_PLACEHOLDER/api/v2/otlp"
+    endpoint: "https://hci34192.live.dynatrace.com/api/v2/otlp"
     headers: 
       Authorization: "Api-Token ${env:DT_API_TOKEN}"
 service:

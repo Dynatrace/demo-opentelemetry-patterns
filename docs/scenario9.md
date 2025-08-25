@@ -18,6 +18,7 @@ If you haven't done so already, stop the previous collector process by pressing 
 Run the following command to start the collector:
 
 ``` { "name": "[background] run otel collector scenario 9" }
+source /workspaces/$RepositoryName/.env
 /workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario9.yaml
 ```
 

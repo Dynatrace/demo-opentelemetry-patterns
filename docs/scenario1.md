@@ -15,6 +15,7 @@ We will first generate the data then explain the YAML configuration.
 Run the following command to start the collector:
 
 ``` { "name": "[background] run otel collector scenario 1" }
+source /workspaces/$RepositoryName/.env
 /workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario1.yaml
 ```
 

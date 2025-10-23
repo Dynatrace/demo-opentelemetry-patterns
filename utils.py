@@ -8,7 +8,7 @@ import json
 import hashlib
 from loguru import logger
 
-REPOSITORY_NAME = os.environ.get("RepositoryName", "")
+REPOSITORY_NAME = os.environ.get("RepositoryName", "demo-opentelemetry-patterns")
 BASE_DIR = f"/workspaces/{REPOSITORY_NAME}"
 
 GEOLOCATION_DEV = "GEOLOCATION-0A41430434C388A9"
@@ -43,8 +43,8 @@ COLLECTOR_WAIT_TIMEOUT_SECONDS = 30
 OPENTELEMETRY_COLLECTOR_ENDPOINT = "http://localhost:4318"
 CODESPACE_NAME = os.environ.get("CODESPACE_NAME")
 
-GITHUB_ORG_SLASH_REPOSITORY = os.environ.get("GITHUB_REPOSITORY") # eg. yourOrg/yourRepo
 GITHUB_REPO_NAME = os.environ.get("RepositoryName") # eg. mclass
+GITHUB_ORG_SLASH_REPOSITORY = os.environ.get("GITHUB_REPOSITORY", GITHUB_REPO_NAME) # eg. yourOrg/yourRepo
 GITHUB_DOT_COM_REPO = f"https://github.com/{GITHUB_ORG_SLASH_REPOSITORY}.git"
 GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN = os.environ.get("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
@@ -368,7 +368,7 @@ def send_startup_ping(demo_name=""):
 
     body = {
         "repo": hashed_org_slash_repo,
-        "testing": True,
+        "testing": False,
         "tenant": DT_ENVIRONMENT_ID,
         "demo": demo_name,
         "codespace.name": CODESPACE_NAME

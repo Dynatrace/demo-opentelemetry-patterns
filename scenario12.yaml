@@ -1,10 +1,8 @@
 receivers:
   filelog:
-    #include: /workspaces/${env:RepositoryName}/file.log
-    include: example.csv
+    include: /workspaces/${env:RepositoryName}/file.log
     include_file_name: true
     include_file_path: true
-    start_at: beginning
     operators:
       - type: csv_parser
         # Add your first row names here

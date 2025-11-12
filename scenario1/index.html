@@ -745,6 +745,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12. Parse CSV Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -901,10 +924,10 @@
 
 <h1 id="batching-telemetry">Batching Telemetry<a class="headerlink" href="#batching-telemetry" title="Permanent link">#</a></h1>
 <script>
-var CURRENT_PAGE = "";
+var CURRENT_PAGE = "scenario-1";
 
 document.addEventListener('DOMContentLoaded', function() {
-  dynatrace.sendBizEvent('page_load', {"page": "scenario-1"});
+  dynatrace.sendBizEvent('page_load', {"page": CURRENT_PAGE});
 });
 </script>
 
@@ -914,7 +937,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>We will first generate the data then explain the YAML configuration.</p>
 <h2 id="start-collector">Start Collector<a class="headerlink" href="#start-collector" title="Permanent link">#</a></h2>
 <p>Run the following command to start the collector:</p>
-<div class="highlight"><pre><span></span><code>/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario1.yaml
+<div class="highlight"><pre><span></span><code>source /workspaces/$RepositoryName/.env
+/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario1.yaml
 </code></pre></div>
 <h2 id="generate-log-data">Generate Log Data<a class="headerlink" href="#generate-log-data" title="Permanent link">#</a></h2>
 <p>Open the empty <code>file.log</code> file and add this line then save the file.</p>

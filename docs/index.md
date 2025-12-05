@@ -11,18 +11,19 @@ There is a **lot** of telemetry data. Reducing, removing and standardising the t
 
 This hands on Observability Lab will demonstrate various tips and tricks on how to achieve a clean, standardised telemetry ingest using when you send data via the [Dynatrace Collector](https://docs.dynatrace.com/docs/ingest-from/opentelemetry/collector){target=_blank}:
 
-* Logs: Batching
-* Logs: Including file and Operating System information
-* Logs: Correcting timestamps
-* Logs: Setting default severity / status
-* Logs: Setting severity / status based on log line content
-* Logs: Adding Key/Value attributes based on log line content
-* Logs: Dynamic rewriting of log content for standardisation
-* Logs: Dropping logs based on log content
-* Logs: Dropping low value logs
-* Logs: Enriching logs with team / ownership metadata
-* Logs: Extracting Metrics from Logs
-* Logs: Parsing CSV Files
+1. Logs: Batching
+1. Logs: Including file and Operating System information
+1. Logs: Correcting timestamps
+1. Logs: Setting default severity / status
+1. Logs: Setting severity / status based on log line content
+1. Logs: Adding Key/Value attributes based on log line content
+1. Logs: Dynamic rewriting of log content for standardisation
+1. Logs: Dropping logs based on log content
+1. Logs: Dropping low value logs
+1. Logs: Enriching logs with team / ownership metadata
+1. Logs: Extracting Metrics from Logs
+1. Logs: Parsing CSV Files
+1. Logs: Redacting Logs
 
 The Dynatrace collector is a fully supported distribution of the open source upstream [OpenTelemetry collector](https://opentelemetry.io/docs/collector/){target=_blank}. The Dynatrace collector contains no vendor specific components.
 

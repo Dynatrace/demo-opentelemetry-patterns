@@ -28,12 +28,12 @@ If you haven't done so already, stop the previous collector process by pressing 
 
 Run the following command to start the collector:
 
-``` { "name": "[background] run otel collector scenario 11" }
+``` { "name": "[background] run otel collector scenario 12" }
 source /workspaces/$RepositoryName/.env
 /workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario12.yaml
 ```
 
-### Generate DataLog Data
+### Generate Log Data
 
 Open the `example.csv` file and add these lines then save the file.
 

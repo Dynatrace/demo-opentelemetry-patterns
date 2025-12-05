@@ -12,7 +12,7 @@
         <link rel="prev" href="../scenario11/">
       
       
-        <link rel="next" href="../cleanup/">
+        <link rel="next" href="../scenario13/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -742,9 +742,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#generate-datalog-data" class="md-nav__link">
+  <a href="#generate-log-data" class="md-nav__link">
     <span class="md-ellipsis">
-      Generate DataLog Data
+      Generate Log Data
     </span>
   </a>
   
@@ -772,6 +772,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13. Redacting Log Attributes
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -895,9 +918,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#generate-datalog-data" class="md-nav__link">
+  <a href="#generate-log-data" class="md-nav__link">
     <span class="md-ellipsis">
-      Generate DataLog Data
+      Generate Log Data
     </span>
   </a>
   
@@ -941,6 +964,14 @@
 
 
 <h1 id="parse-csv-files">Parse CSV Files<a class="headerlink" href="#parse-csv-files" title="Permanent link">#</a></h1>
+<script>
+var CURRENT_PAGE = "scenario-12";
+
+document.addEventListener('DOMContentLoaded', function() {
+  dynatrace.sendBizEvent('page_load', {"page": CURRENT_PAGE});
+});
+</script>
+
 <div class="admonition tip">
 <p class="admonition-title">CSV Enrichment</p>
 <p>This page describes how to send a CSV file into Dynatrace for logging purposes.
@@ -961,7 +992,7 @@ https://example.com/post/3,Ian,Kris,22/11/2025
 <div class="highlight"><pre><span></span><code>source /workspaces/$RepositoryName/.env
 /workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario12.yaml
 </code></pre></div>
-<h3 id="generate-datalog-data">Generate DataLog Data<a class="headerlink" href="#generate-datalog-data" title="Permanent link">#</a></h3>
+<h3 id="generate-log-data">Generate Log Data<a class="headerlink" href="#generate-log-data" title="Permanent link">#</a></h3>
 <p>Open the <code>example.csv</code> file and add these lines then save the file.</p>
 <div class="highlight"><pre><span></span><code>Post,Asked By,Answered,Date Posted
 https://example.com/post/1,Anna,Bob,21/11/2025

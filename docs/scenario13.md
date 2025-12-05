@@ -1,4 +1,4 @@
-# Parse CSV Files
+# Redact Log Lines
 
 --8<-- "snippets/bizevent-scenario13.js"
 

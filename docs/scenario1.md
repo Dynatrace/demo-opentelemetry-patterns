@@ -15,11 +15,17 @@ We will first generate the data then explain the YAML configuration.
 Run the following command to start the collector:
 
 ``` { "name": "[background] run otel collector scenario 1" }
-source /workspaces/$RepositoryName/.env
-/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario1.yaml
+source .env
+$BASE_DIR/dynatrace-otel-collector --config=$BASE_DIR/scenario1.yaml
 ```
 
 ## Generate Log Data
+
+Create a new file in the root of this directory called file.log:
+
+```{ "name": "create file.log" }
+touch $BASE_DIR/file.log
+```
 
 Open the empty `file.log` file and add this line then save the file.
 

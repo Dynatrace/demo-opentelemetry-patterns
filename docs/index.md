@@ -21,7 +21,8 @@ This hands on Observability Lab will demonstrate various tips and tricks on how 
 1. Logs: Dropping logs based on log content
 1. Logs: Dropping low value logs
 1. Logs: Enriching logs with team / ownership metadata
-1. Logs: Extracting Metrics from Logs
+1. Logs: Extracting Metrics from Logs (using Dynatrace Query Language)
+1. Logs: Extracting Metrics from Logs (using a collector)
 1. Logs: Parsing CSV Files
 1. Logs: Redacting Logs
 

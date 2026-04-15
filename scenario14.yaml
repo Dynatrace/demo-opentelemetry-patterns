@@ -1,0 +1,26 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 127.0.0.1:4317
+
+processors:
+  redaction:
+    allow_all_keys: true
+    blocked_key_patterns:
+      - ".*user.id.*"
+
+exporters:
+  debug:
+    verbosity: detailed
+
+  otlphttp/dynatrace:
+    endpoint: "https://hci34192.live.dynatrace.com/api/v2/otlp"
+    headers: 
+      Authorization: "Api-Token ${env:DT_API_TOKEN}"
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [redaction]
+      exporters: [debug, otlphttp/dynatrace]

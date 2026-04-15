@@ -1,24 +1,26 @@
-# Parse CSV Files
+# Transform Logs to Metrics using the Collector
 
 --8<-- "snippets/bizevent-scenario12.js"
 
-!!! tip "CSV Enrichment"
-    This page describes how to send a CSV file into Dynatrace for logging purposes.
-    If instead you want to USE a CSV to enrich logs (ie. take a log and dynamically add CSV fields) then you're looking for the functionality provided by [Dynatrace lookup tables](https://www.youtube.com/watch?v=-I6QPwylOfQ&t=401s){target=_blank}
+!!! info ""
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/-I6QPwylOfQ?si=aGLOfQhsZPy2veXl&amp;start=400" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    This scenario uses a collector which contains the [signal_to_metrics](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/connector/signaltometricsconnector){target=_blank} connector [which the Dynatrace distribution doesn't currently include.](https://github.com/Dynatrace/dynatrace-otel-collector/blob/main/manifest.yaml#L55){target=_blank}
 
 
-Imagine you have a CSV file that represents an ever growing list of forums posts: the date it was first posted, who asked the question and who answered it into Dynatrace. How do you do get this data into Dynatrace?
+Often there are numerical values in log lines that you'd like to extract and chart as a timeseries.
 
-```
-Post,Asked By,Answered,Date Posted
-https://example.com/post/1,Anna,Bob,21/11/2025
-https://example.com/post/2,Bob,Sarah,22/11/2025
-https://example.com/post/3,Ian,Kris,22/11/2025
-```
+## Simple Parsing
+Take this log line for example: `A dummy log line field=200`
+
+You'd like to extract `200` and use that value.
 
 [scenario12.yaml](https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario12.yaml){target=_blank} shows the base OpenTelemetry collector configuration we'll use during this exercise.
+
+The metric value is first extracted from the log lien using the `transform` processor and stored as a log attribute called `metrics` which is a Map of metric values.
+
+The log line is passed to the `signal_to_metrics` connector (a connector connects two pipelines). The `signal_to_metrics` connector extracts the metric, calls it `foo` and parses it from a `String` to a `Double` (ie. an actual number).
+
+The metric is then sent to a dedicated metrics pipeline and sent to Dynatrace.
 
 ### Stop Previous Collector
 
@@ -29,64 +31,39 @@ If you haven't done so already, stop the previous collector process by pressing 
 Run the following command to start the collector:
 
 ``` { "name": "[background] run otel collector scenario 12" }
-source /workspaces/$RepositoryName/.env
-/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario12.yaml
+source .env
+$BASE_DIR/dynatrace-otel-collector --config=$BASE_DIR/scenario12.yaml
 ```
 
 ### Generate Log Data
 
-Open the `example.csv` file and add these lines then save the file.
+Open `file.log` file and add these log lines then save the file.
 
 ```
-Post,Asked By,Answered,Date Posted
-https://example.com/post/1,Anna,Bob,21/11/2025
-https://example.com/post/2,Bob,Sarah,22/11/2025
-https://example.com/post/3,Ian,Kris,22/11/2025
+A first dummy log line field=200
+A second dummy log line field=200
 ```
 
 ### View Data in Dynatrace
 
 --8<-- "snippets/enlarge-image-tip.md"
 
-![scenario12 dynatrace results](images/scenario12-dql-1.png)
+![scenario12 find metric](images/scenario12-find-metric.png)
+![scenario12 dynatrace results](images/scenario12-metric-chart.png)
 
-Open a new notebook (or add a DQL section to an existing notebook).
-
-```
-fetch logs
-| search "https://example.com/post"
-| fieldsKeep timestamp, content, `post`, `asked by`, `answered`, `date posted`
-```
-
-Click the `Run` button on the DQL tile. You should see the new data.
-
-## Explanation
-
-The filelog receiver of the collector is configured to watch for changes to `example.csv`.
-
-When new content is detected, the filelog receiver ingests that data and parses it using the [csv_parser operator](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/pkg/stanza/docs/operators/csv_parser.md){target=_blank}.
-
-We have informed the csv_parser that it should expect a header row with the named fields - if it doesn't find one, it will dynamically add those fields to the log records - meaning you can also send in CSV content without a header row.
-
-Finally we've told the csv_parser that a comma will be the field delimiter.
-
-The end result is a log record that looks like this as it flows through the collector (notice the data has been transformed to dedicated attributes):
+First check the metric exists using the `metrics` command.
 
 ```
-LogRecord #0
-ObservedTimestamp: 2025-11-12 05:29:26.4341502 +0000 UTC
-Timestamp: 1970-01-01 00:00:00 +0000 UTC
-SeverityText:
-SeverityNumber: Unspecified(0)
-Body: Str(https://example.com/post/1,Anna,Bob,21/11/2025)
-Attributes:
-     -> Asked By: Str(Anna)
-     -> Answered: Str(Bob)
-     -> Date Posted: Str(21/11/2025)
-     -> log.file.name: Str(example.csv)
-     -> log.file.path: Str(example.csv)
-     -> Post: Str(https://example.com/post/1)
-Trace ID:
-Span ID:
-Flags: 0
+metrics
+| filter metric.key == "foo"
 ```
+
+Then chart it either using DQL or the metrics chart. Here is the DQL:
+
+```
+timeseries avg(foo)
+```
+
+<div class="grid cards" markdown>
+- [Click here to continue :octicons-arrow-right-24:](scenario13.md)
+</div>

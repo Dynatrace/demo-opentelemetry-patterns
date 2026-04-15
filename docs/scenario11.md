@@ -1,11 +1,11 @@
-# Transform Logs to Metrics
+# Transform Logs to Metrics using Dynatrace Query Language
 
 --8<-- "snippets/bizevent-scenario11.js"
 
 Often there are numerical values in log lines that you'd like to extract and chart as a timeseries.
 
 ## Simple Parsing
-Take this log line for example: `A log line field=200`
+Take this log line for example: `A dummy log line field=200`
 
 You'd like to extract `200` and use that value.
 
@@ -20,8 +20,8 @@ If you haven't done so already, stop the previous collector process by pressing 
 Run the following command to start the collector:
 
 ``` { "name": "[background] run otel collector scenario 11" }
-source /workspaces/$RepositoryName/.env
-/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario11.yaml
+source .env
+$BASE_DIR/dynatrace-otel-collector --config=$BASE_DIR/scenario11.yaml
 ```
 
 ### Generate Log Data
@@ -29,8 +29,8 @@ source /workspaces/$RepositoryName/.env
 Open `file.log` file and add these log lines then save the file.
 
 ```
-A first log line field=200
-A second log line field=200
+A first dummy log line field=200
+A second dummy log line field=200
 ```
 
 ### View Data in Dynatrace
@@ -155,5 +155,5 @@ fetch logs
 Dynatrace has extracted the values and grouped by the `split_by` field. In other words, grouped by the table name.
 
 <div class="grid cards" markdown>
-- [Click here to continue :octicons-arrow-right-24:](whats-next.md)
+- [Click here to continue :octicons-arrow-right-24:](scenario12.md)
 </div>

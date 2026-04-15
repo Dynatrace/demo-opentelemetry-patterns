@@ -24,7 +24,7 @@ Make a note of your environment type. The above environment type is `live`. If i
 In Dynatrace:
 
 * Press `ctrl + k` and search for `access tokens`
-* Create a new access token with the `logs.ingest` permission
+* Create a new access token with the `logs.ingest` and `metrics.ingest` permission
 
 You have all the necessary details and are ready to get started.
 

@@ -1,6 +1,6 @@
 receivers:
   filelog:
-    include: /workspaces/${env:RepositoryName}/file.log
+    include: ${env:BASE_DIR}/file.log
     include_file_name: true
     include_file_path: true
 
@@ -18,8 +18,8 @@ processors:
         statements:
           - set(log.severity_text, "INFO") where IsMatch(log.severity_text, "")
           - set(log.severity_number, SEVERITY_NUMBER_INFO) where IsMatch(log.severity_text, "INFO") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
-          - set(log.severity_text, "ERROR") where IsMatch(body, ".*something is broken.*")
-          - set(log.severity_number, SEVERITY_NUMBER_ERROR) where IsMatch(body, ".*something is broken.*") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
+          - set(log.severity_text, "ERROR") where IsMatch(log.body, ".*something is broken.*")
+          - set(log.severity_number, SEVERITY_NUMBER_ERROR) where IsMatch(log.body, ".*something is broken.*") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
 
   # Drop telemetry if...
   # Condition are an OR
@@ -35,7 +35,7 @@ exporters:
     verbosity: detailed
 
   otlphttp/dynatrace:
-    endpoint: "DT_ENDPOINT_PLACEHOLDER/api/v2/otlp"
+    endpoint: "https://hci34192.live.dynatrace.com/api/v2/otlp"
     headers: 
       Authorization: "Api-Token ${env:DT_API_TOKEN}"
 service:

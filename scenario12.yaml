@@ -1,14 +1,8 @@
 receivers:
   filelog:
-    include: /workspaces/${env:RepositoryName}/file.log
+    include: ${env:BASE_DIR}/file.log
     include_file_name: true
     include_file_path: true
-    operators:
-      - type: csv_parser
-        # Add your first row names here
-        # for example:
-        header: Post,Asked By,Answered,Date Posted
-        delimiter: ","
 processors:
   batch:
     send_batch_size: 500
@@ -17,18 +11,39 @@ processors:
     detectors: ["system"]
     system:
       hostname_sources: ["os"]
+  transform:
+    log_statements:
+      - context: log
+        statements:
+          # Use regex101.com to build this
+          # Remember to add an extra backslash here
+          # regex101.com = \d+
+          # collector = \\d+
+          - set(log.attributes["metrics"], ExtractPatterns(log.body, "(?P<field_value>\\d+)"))
+  cumulativetodelta: {}
+connectors:
+  signal_to_metrics:
+    logs:
+      - name: foo
+        description: Extract the field value from the log
+        gauge:
+          value: Double(log.attributes["metrics"]["field_value"])
 
 exporters:
   debug:
     verbosity: detailed
 
   otlphttp/dynatrace:
-    endpoint: "DT_ENDPOINT_PLACEHOLDER/api/v2/otlp"
+    endpoint: "https://hci34192.live.dynatrace.com/api/v2/otlp"
     headers: 
       Authorization: "Api-Token ${env:DT_API_TOKEN}"
 service:
   pipelines:
     logs:
       receivers: [filelog]
-      processors: [resourcedetection, batch]
+      processors: [resourcedetection, transform, batch]
+      exporters: [otlphttp/dynatrace, debug, signal_to_metrics]
+    metrics:
+      receivers: [signal_to_metrics]
+      processors: [cumulativetodelta]
       exporters: [debug, otlphttp/dynatrace]

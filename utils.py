@@ -5,11 +5,34 @@ import glob
 import time
 import os
 import json
+import yaml
 import hashlib
 from loguru import logger
+import subprocess
+import sys
+from dotenv import load_dotenv, set_key
+from os_arch_detection import *
 
 REPOSITORY_NAME = os.environ.get("RepositoryName", "demo-opentelemetry-patterns")
 BASE_DIR = f"/workspaces/{REPOSITORY_NAME}"
+
+# If GITHUB_USER is unset, codespace is running locally
+# In which case, attempt to load the .env file
+# Otherwise the details are pulled from the `secrets` block
+# in devcontainer.json (provided via the GitHub UI form)
+# In that case, loading the .env file is uneccessary
+# As the env vars are directly injected / set by Github
+GITHUB_USER = os.environ.get("GITHUB_USER", "")
+if GITHUB_USER == "":
+    # Running codespace locally
+    # so load the .env file
+    loaded = load_dotenv()
+    if not loaded:
+        logger.error("Did you create a .env file?")
+
+DT_ENVIRONMENT_ID = os.environ.get("DT_ENVIRONMENT_ID", "")
+DT_ENVIRONMENT_TYPE = os.environ.get("DT_ENVIRONMENT_TYPE", "live")
+DT_API_TOKEN = os.environ.get("DT_API_TOKEN", "")
 
 GEOLOCATION_DEV = "GEOLOCATION-0A41430434C388A9"
 GEOLOCATION_SPRINT = "GEOLOCATION-3F7C50D0C9065578"
@@ -51,6 +74,88 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 DT_OAUTH_CLIENT_ID = os.environ.get("DT_OAUTH_CLIENT_ID")
 DT_OAUTH_CLIENT_SECRET = os.environ.get("DT_OAUTH_CLIENT_SECRET")
 DT_OAUTH_ACCOUNT_URN = os.environ.get("DT_OAUTH_ACCOUNT_URN")
+
+RUNME_EXT_MAP = {"darwin": "tar.gz", "linux": "tar.gz", "windows": "zip"}
+COLLECTOR_OS_MAP = {"darwin": "Darwin", "linux": "Linux", "windows": "Windows"}
+COLLECTOR_ARCH_MAP = {
+    "amd64": "x86_64",
+    "arm64": "arm64",
+    "386": "i386",
+    "armv7": "armv7",
+}
+COLLECTOR_EXT_MAP = {"darwin": "tar.gz", "linux": "tar.gz", "windows": "zip"}
+OTELCOL_CONTRIB_OS_MAP = {"darwin": "darwin", "linux": "linux", "windows": "windows"}
+OTELCOL_CONTRIB_ARCH_MAP = {
+    "amd64": "amd64",
+    "arm64": "arm64",
+    "386": "386",
+    "armv7": "armv7",
+}
+OTELCOL_CONTRIB_EXT_MAP = {"darwin": "tar.gz", "linux": "tar.gz", "windows": "zip"}
+
+
+def build_runme_download_url(version: str, base: str = "https://downloads.runme.dev/runme", honor_env: bool = True):
+    det = detect_os_arch(honor_env=honor_env)
+    os_token = det["os"]
+    arch_token = det["arch"]
+    ext = RUNME_EXT_MAP.get(os_token, "tar.gz")
+    filename = f"runme_{os_token}_{arch_token}.{ext}"
+    return {
+        "url": f"{base}/{version}/{filename}",
+        "filename": filename,
+        "os": os_token,
+        "arch": arch_token,
+        "notes": det.get("notes", ""),
+    }
+
+
+def build_collector_download_url(version: str, base: str = "https://github.com/Dynatrace/dynatrace-otel-collector/releases/download", honor_env: bool = True):
+    det = detect_os_arch(honor_env=honor_env)
+    os_token = det["os"]
+    arch_token = det["arch"]
+
+    collector_os = COLLECTOR_OS_MAP.get(os_token, os_token.capitalize())
+    collector_arch = COLLECTOR_ARCH_MAP.get(arch_token, arch_token)
+    ext = COLLECTOR_EXT_MAP.get(os_token, "tar.gz")
+    filename = f"dynatrace-otel-collector_{version}_{collector_os}_{collector_arch}.{ext}"
+
+    return {
+        "url": f"{base}/v{version}/{filename}",
+        "filename": filename,
+        "os": os_token,
+        "arch": arch_token,
+        "notes": det.get("notes", ""),
+    }
+
+
+def build_otelcol_contrib_download_url(version: str, base: str = "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download", honor_env: bool = True):
+    """
+    Build the otelcol-contrib download URL for the detected or provided version/os/arch.
+
+    Example:
+      build_otelcol_contrib_download_url("0.150.1")
+      Returns: {
+          "url": "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.150.1/otelcol-contrib_0.150.1_linux_amd64.tar.gz",
+          "filename": "otelcol-contrib_0.150.1_linux_amd64.tar.gz",
+          ...
+      }
+    """
+    det = detect_os_arch(honor_env=honor_env)
+    os_token = det["os"]
+    arch_token = det["arch"]
+
+    otel_os = OTELCOL_CONTRIB_OS_MAP.get(os_token, os_token)
+    otel_arch = OTELCOL_CONTRIB_ARCH_MAP.get(arch_token, arch_token)
+    ext = OTELCOL_CONTRIB_EXT_MAP.get(os_token, "tar.gz")
+    filename = f"otelcol-contrib_{version}_{otel_os}_{otel_arch}.{ext}"
+
+    return {
+        "url": f"{base}/v{version}/{filename}",
+        "filename": filename,
+        "os": os_token,
+        "arch": arch_token,
+        "notes": det.get("notes", ""),
+    }
 
 def run_command(args, ignore_errors=False):
     output = subprocess.run(args, capture_output=True, text=True, encoding="UTF8")
@@ -264,6 +369,14 @@ def build_dt_urls(dt_env_id, dt_env_type="live"):
     
     return dt_tenant_apps, dt_tenant_live
 
+def _buildDTURLsAndPersistToDisk():
+    dt_tenant_apps, dt_tenant_live = build_dt_urls(DT_ENVIRONMENT_ID, DT_ENVIRONMENT_TYPE)
+    set_key(dotenv_path=f"{BASE_DIR}/.env", key_to_set="DT_URL", value_to_set=dt_tenant_live, export=True)
+
+# Run the above function
+_buildDTURLsAndPersistToDisk()
+set_key(dotenv_path=f"{BASE_DIR}/.env", key_to_set="BASE_DIR", value_to_set=BASE_DIR, export=True)
+
 def get_sso_auth_token(sso_token_url, oauth_client_id, oauth_client_secret, oauth_urn, permissions):
     
     headers = {
@@ -379,3 +492,95 @@ def send_startup_ping(demo_name=""):
         headers=headers,
         json=body
     )
+
+# Cluster is created
+# But due to running locally in docker
+# the IPs aren't correct so kubectl get nodes won't work
+# This function fixes this
+def configureClusterConnection():
+    with open(f"{BASE_DIR}/.devcontainer/kind-cluster.yml", 'r') as file:
+        data = yaml.safe_load(file)
+
+    # Access specific values like a dictionary
+    cluster_name = data['name']
+
+    # 3) Determine current container ID (hostname)
+    try:
+        container_id = subprocess.run(["hostname"], capture_output=True).stdout.strip()
+        if not container_id:
+            raise RuntimeError("Empty hostname")
+        logger.info(f"Container ID (hostname): {container_id}")
+    except Exception as e:
+        logger.error("Failed to obtain hostname/container id:", e, file=sys.stderr)
+        sys.exit(1)
+    
+    # Start container if it isn't already
+    logger.info(f"Starting {cluster_name}-control-plane in case it is stopped...")
+    try:
+        subprocess.run(["docker", "start", f"{cluster_name}-control-plane"])
+    except Exception as e:
+        logger.info(f"Caught exception trying to start {cluster_name}-control-plane. Perhaps it is already running?")
+        logger.error(e)
+
+    # 3) Connect this devcontainer to the kind network (ignore error if already connected)
+    logger.info(f"Connecting container {container_id} to Docker network {cluster_name} (if not already connected)...")
+    proc = subprocess.run(["docker", "network", "connect", "kind", container_id], check=False, capture_output=True)
+    if proc.returncode == 0:
+        logger.info(f"Connected to '{cluster_name}' network.")
+    else:
+        # Docker returns non-zero if already connected or other issues
+        # We mimic the bash behaviour: ignore the error
+        stderr = proc.stderr.strip() if proc.stderr else ""
+        print(f"Ignored error while connecting to network (return code {proc.returncode}): {stderr}")
+
+    # 4) Get the kind-control-plane internal IP on the `cluster_name` network
+    try:
+        logger.info(f"Inspecting '{cluster_name}-control-plane' container to find IP on '{cluster_name}' network...")
+        inspect_out = subprocess.run(["docker", "inspect", f"{cluster_name}-control-plane"], capture_output=True).stdout
+        info = json.loads(inspect_out)
+        # info is a list; take the first element
+        net_info = info[0]["NetworkSettings"]["Networks"]
+        logger.info(net_info)
+        # This SHOULD really be 'kind'
+        # and not the cluster name because kind calls its network `kind`
+        if 'kind' not in net_info:
+            raise KeyError("Network 'kind' not present in kind-control-plane networks")
+        kind_ip = net_info["kind"]["IPAddress"]
+        if not kind_ip:
+            raise RuntimeError(f"Empty IP address for {cluster_name}-control-plane on 'kind' network")
+        logger.info(f"Found {cluster_name}-control-plane IP on 'kind' network: {kind_ip}")
+    except (subprocess.CalledProcessError, KeyError, IndexError, ValueError, RuntimeError) as e:
+        logger.error(f"Failed to get {cluster_name}-control-plane IP:", e, file=sys.stderr)
+        sys.exit(1)
+
+    # 5) Update kubeconfig to use the internal IP instead of 127.0.0.1
+    server_url = f"https://{kind_ip}:6443"
+    try:
+        logger.info(f"Updating kubeconfig cluster 'kind-{cluster_name}' to use API server {server_url} ...")
+        subprocess.run(["kubectl", "config", "set-cluster", f"kind-{cluster_name}", f"--server={server_url}"], check=True)
+        logger.info("kubeconfig updated.")
+    except subprocess.CalledProcessError as e:
+        logger.error("Failed to update kubeconfig:", e, file=sys.stderr)
+        sys.exit(1)
+
+def createKubernetesCluster():
+    
+    try:
+        # 1) Create kind cluster
+        logger.info("Creating kind cluster...")
+        
+        subprocess.run([
+            "kind", "create", "cluster",
+            "--config", f"{BASE_DIR}/.devcontainer/kind-cluster.yml",
+            "--wait", "30s"
+        ], check=True)
+
+    except subprocess.CalledProcessError as e:
+        logger.error("Error creating kind cluster:", e, file=sys.stderr)
+        # Decide whether to continue or exit; we exit here because subsequent steps depend on the cluster
+        sys.exit(1)
+
+    logger.info("Kind cluster creation completed.")
+
+def get_os():
+    return detect_os_arch().get("os")

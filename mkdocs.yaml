@@ -16,9 +16,10 @@ nav:
     - '8. Drop Logs containing a password': scenario8.md
     - '9. Drop Low Value Logs': scenario9.md
     - '10. Enriching Logs with Ownership Information': scenario10.md
-    - '11. Extracting Metrics from Logs': scenario11.md
-    - '12. Parse CSV Files': scenario12.md
-    - '13. Redacting Log Attributes': scenario13.md
+    - '11. Extracting Metrics from Logs using DQL': scenario11.md
+    - '12. Extracting Metrics from Logs using Collector': scenario12.md
+    - '13. Parse CSV Files': scenario13.md
+    - '14. Redacting Log Attributes': scenario14.md
   - '8. Cleanup': cleanup.md
   - '9. Resources': resources.md
   - "10. What's Next?": whats-next.md

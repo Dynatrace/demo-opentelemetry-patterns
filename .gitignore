@@ -4,3 +4,6 @@ file.log
 notes.txt
 memory.md
 plans
+dynatrace-otel-collector
+otelcol-contrib
+__pycache__/

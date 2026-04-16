@@ -1,6 +1,6 @@
 receivers:
   filelog:
-    include: /workspaces/${env:RepositoryName}/file.log
+    include: ${env:BASE_DIR}/file.log
     include_file_name: true
     include_file_path: true
 
@@ -20,12 +20,12 @@ processors:
           - set(log.observed_time, Now())
           - set(log.severity_text, "INFO") where IsMatch(log.severity_text, "")
           - set(log.severity_number, SEVERITY_NUMBER_INFO) where IsMatch(log.severity_text, "INFO") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
-          - set(log.severity_text, "ERROR") where IsMatch(body, ".*something is broken.*")
-          - set(log.severity_number, SEVERITY_NUMBER_ERROR) where IsMatch(body, ".*something is broken.*") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
-          - replace_pattern(body, "user.tier=", "userTier=")
-          - set(log.attributes["support.tier"], "gold") where IsMatch(body, ".*userTier=tier1.*")
-          - set(log.attributes["support.tier"], "silver") where IsMatch(body, ".*userTier=tier2.*")
-          - set(log.attributes["support.tier"], "bronze") where IsMatch(body, ".*userTier=tier3.*")
+          - set(log.severity_text, "ERROR") where IsMatch(log.body, ".*something is broken.*")
+          - set(log.severity_number, SEVERITY_NUMBER_ERROR) where IsMatch(log.body, ".*something is broken.*") # https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber
+          - replace_pattern(log.body, "user.tier=", "userTier=")
+          - set(log.attributes["support.tier"], "gold") where IsMatch(log.body, ".*userTier=tier1.*")
+          - set(log.attributes["support.tier"], "silver") where IsMatch(log.body, ".*userTier=tier2.*")
+          - set(log.attributes["support.tier"], "bronze") where IsMatch(log.body, ".*userTier=tier3.*")
 
   # Drop telemetry if...
   # Condition are an OR
@@ -34,6 +34,10 @@ processors:
     error_mode: ignore
     logs:
       log_record:
+        # Notice this is body and transform uses log.body
+        # Byproduct of OTEL design where each processor is independantly developed
+        # Future standard is log.body so I expect filter processor to catch up sooner or later
+        # But for now, we live with this inconsistency
         - 'IsMatch(body, ".*(?i)password.*")' # Case insensitive match for any log line containing `password`
 
 exporters:
@@ -41,7 +45,7 @@ exporters:
     verbosity: detailed
 
   otlphttp/dynatrace:
-    endpoint: "DT_ENDPOINT_PLACEHOLDER/api/v2/otlp"
+    endpoint: "https://hci34192.live.dynatrace.com/api/v2/otlp"
     headers: 
       Authorization: "Api-Token ${env:DT_API_TOKEN}"
 service:

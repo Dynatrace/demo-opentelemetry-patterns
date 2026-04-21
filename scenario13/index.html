@@ -12,7 +12,7 @@
         <link rel="prev" href="../scenario12/">
       
       
-        <link rel="next" href="../cleanup/">
+        <link rel="next" href="../scenario14/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>13. Redacting Log Attributes - Dynatrace Observability Lab: OpenTelemetry Patterns</title>
+        <title>13. Parse CSV Files - Dynatrace Observability Lab: OpenTelemetry Patterns</title>
       
     
     
@@ -123,7 +123,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#redact-log-lines" class="md-skip">
+        <a href="#parse-csv-files" class="md-skip">
           Skip to content
         </a>
       
@@ -159,7 +159,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              13. Redacting Log Attributes
+              13. Parse CSV Files
             
           </span>
         </div>
@@ -656,7 +656,7 @@
   
   
   <span class="md-ellipsis">
-    11. Extracting Metrics from Logs
+    11. Extracting Metrics from Logs using DQL
     
   </span>
   
@@ -679,7 +679,7 @@
   
   
   <span class="md-ellipsis">
-    12. Parse CSV Files
+    12. Extracting Metrics from Logs using Collector
     
   </span>
   
@@ -711,7 +711,7 @@
   
   
   <span class="md-ellipsis">
-    13. Redacting Log Attributes
+    13. Parse CSV Files
     
   </span>
   
@@ -724,7 +724,7 @@
   
   
   <span class="md-ellipsis">
-    13. Redacting Log Attributes
+    13. Parse CSV Files
     
   </span>
   
@@ -765,18 +765,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#generate-logrecord" class="md-nav__link">
+  <a href="#generate-log-data" class="md-nav__link">
     <span class="md-ellipsis">
-      Generate LogRecord
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#validate-data-in-collector-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      Validate Data in Collector Output
+      Generate Log Data
     </span>
   </a>
   
@@ -791,10 +782,65 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explanation
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    14. Redacting Log Attributes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenario15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    15. Processing JSONL
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -918,18 +964,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#generate-logrecord" class="md-nav__link">
+  <a href="#generate-log-data" class="md-nav__link">
     <span class="md-ellipsis">
-      Generate LogRecord
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#validate-data-in-collector-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      Validate Data in Collector Output
+      Generate Log Data
     </span>
   </a>
   
@@ -939,6 +976,15 @@
   <a href="#view-data-in-dynatrace" class="md-nav__link">
     <span class="md-ellipsis">
       View Data in Dynatrace
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explanation
     </span>
   </a>
   
@@ -963,7 +1009,7 @@
   
 
 
-<h1 id="redact-log-lines">Redact Log Lines<a class="headerlink" href="#redact-log-lines" title="Permanent link">#</a></h1>
+<h1 id="parse-csv-files">Parse CSV Files<a class="headerlink" href="#parse-csv-files" title="Permanent link">#</a></h1>
 <script>
 var CURRENT_PAGE = "scenario-13";
 
@@ -972,82 +1018,73 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<p>As already discussed in prior scenarios, logs can contain sensitive information. You've seen ways to drop (filter) out those logs. But what if you want to redact them, rather than drop them outright?</p>
-<p>Imagine a log record is sent with a sensitive field called <code>user.id</code>. The app is written and you can't change it now. So how do you redact only that field?</p>
-<div class="highlight"><pre><span></span><code>{
-  &quot;timestamp&quot;: &quot;...&quot;
-  &quot;severity_text&quot;: &quot;INFO&quot;,
-  &quot;body&quot;: &quot;This is a test log message&quot;,
-  &quot;attributes&quot;: {
-    &quot;custom.attribute&quot;: &quot;value1&quot;,
-    &quot;user.id&quot;: &quot;12345&quot;,
-    &quot;environment&quot;: &quot;production&quot;
-  }
-}
+<div class="admonition tip">
+<p class="admonition-title">CSV Enrichment</p>
+<p>This page describes how to send a CSV file into Dynatrace for logging purposes.
+If instead you want to USE a CSV to enrich logs (ie. take a log and dynamically add CSV fields) then you're looking for the functionality provided by <a href="https://www.youtube.com/watch?v=-I6QPwylOfQ&amp;t=401s" target="_blank">Dynatrace lookup tables</a></p>
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/-I6QPwylOfQ?si=aGLOfQhsZPy2veXl&amp;start=400" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
+</div>
+<p>Imagine you have a CSV file that represents an ever growing list of forums posts: the date it was first posted, who asked the question and who answered it into Dynatrace. How do you do get this data into Dynatrace?</p>
+<div class="highlight"><pre><span></span><code>Post,Asked By,Answered,Date Posted
+https://example.com/post/1,Anna,Bob,21/11/2025
+https://example.com/post/2,Bob,Sarah,22/11/2025
+https://example.com/post/3,Ian,Kris,22/11/2025
 </code></pre></div>
 <p><a href="https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario13.yaml" target="_blank">scenario13.yaml</a> shows the base OpenTelemetry collector configuration we'll use during this exercise.</p>
 <h3 id="stop-previous-collector">Stop Previous Collector<a class="headerlink" href="#stop-previous-collector" title="Permanent link">#</a></h3>
 <p>If you haven't done so already, stop the previous collector process by pressing <code>Ctrl + C</code>.</p>
 <h3 id="start-collector">Start Collector<a class="headerlink" href="#start-collector" title="Permanent link">#</a></h3>
 <p>Run the following command to start the collector:</p>
-<div class="highlight"><pre><span></span><code>source /workspaces/$RepositoryName/.env
-/workspaces/$RepositoryName/dynatrace-otel-collector --config=/workspaces/$RepositoryName/scenario13.yaml
+<div class="highlight"><pre><span></span><code>source .env
+$BASE_DIR/dynatrace-otel-collector --config=$BASE_DIR/scenario13.yaml
 </code></pre></div>
-<h3 id="generate-logrecord">Generate LogRecord<a class="headerlink" href="#generate-logrecord" title="Permanent link">#</a></h3>
-<p>You will use a small Python application to generate and send a correctly formatted log record then send it via gRPC to the collector on port <code>4317</code>.</p>
-<div class="highlight"><pre><span></span><code>python -m venv .
-bin/activate
-pip install -r scenario13-requirements.txt
-python logsender.py
+<h3 id="generate-log-data">Generate Log Data<a class="headerlink" href="#generate-log-data" title="Permanent link">#</a></h3>
+<p>Open the <code>example.csv</code> file and add these lines then save the file.</p>
+<div class="highlight"><pre><span></span><code>Post,Asked By,Answered,Date Posted
+https://example.com/post/1,Anna,Bob,21/11/2025
+https://example.com/post/2,Bob,Sarah,22/11/2025
+https://example.com/post/3,Ian,Kris,22/11/2025
 </code></pre></div>
-<p>You should see lots of output while the required OpenTelemetry packages are installed, then: <code>Log sent successfully!</code></p>
-<h3 id="validate-data-in-collector-output">Validate Data in Collector Output<a class="headerlink" href="#validate-data-in-collector-output" title="Permanent link">#</a></h3>
-<p>Switch terminals back to the collector and you should see output like this.</p>
-<p>Notice how the <code>user.id</code> attribute is now redacted with <code>****</code></p>
-<div class="highlight"><pre><span></span><code>2025-12-05T16:13:03.912+1000    info    Logs    {&quot;resource logs&quot;: 1, &quot;log records&quot;: 1}
-2025-12-05T16:13:03.914+1000    info    ResourceLog #0
-Resource SchemaURL:
-Resource attributes:
-     -&gt; telemetry.sdk.language: Str(python)
-     -&gt; telemetry.sdk.name: Str(opentelemetry)
-     -&gt; telemetry.sdk.version: Str(1.39.0)
-     -&gt; service.name: Str(logsender)
-ScopeLogs #0
-ScopeLogs SchemaURL:
-InstrumentationScope __main__
-LogRecord #0
-ObservedTimestamp: 2025-12-05 06:13:03.6190191 +0000 UTC
-Timestamp: 1970-01-01 00:00:00 +0000 UTC
-SeverityText: INFO
-SeverityNumber: Info(9)
-Body: Str(This is a test log message)
-Attributes:
-     -&gt; custom.attribute: Str(value1)
-     -&gt; user.id: Str(****)
-     -&gt; environment: Str(production)
-Trace ID:
-Span ID:
-Flags: 0
-</code></pre></div>
-<p>This is the basics. There are a lot more options available in the <a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/redactionprocessor">redaction processor documentation</a></p>
 <h3 id="view-data-in-dynatrace">View Data in Dynatrace<a class="headerlink" href="#view-data-in-dynatrace" title="Permanent link">#</a></h3>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Right click and "open image in new tab" to see large image</p>
 </div>
 <p><img alt="scenario13 dynatrace results" src="../images/scenario13-dql-1.png" /></p>
-<p>Open a new notebook (or add a DQL section to an existing notebook). The Dynatrace Query Language below:</p>
-<ul>
-<li>Fetches all logs</li>
-<li>Then filters these logs to keep only those where the field <code>environment</code> equals <code>production</code> and the field <code>custom.attribute</code> equals <code>value1</code></li>
-<li>Then visually displays only the <code>timestamp</code>, <code>content</code>, <code>environment</code>, <code>custom.attribute</code>, <code>user.id</code>, <code>service.name</code> and <code>loglevel</code> fields</li>
-</ul>
-<p>Notice how the <code>user.id</code> field is <code>****</code></p>
+<p>Open a new notebook (or add a DQL section to an existing notebook).</p>
 <div class="highlight"><pre><span></span><code>fetch logs
-| filter environment == &quot;production&quot; and custom.attribute == &quot;value1&quot;
-| fieldsKeep timestamp, content, environment, custom.attribute, user.id, service.name, loglevel
+| search &quot;https://example.com/post&quot;
+| fieldsKeep timestamp, content, `post`, `asked by`, `answered`, `date posted`
 </code></pre></div>
 <p>Click the <code>Run</code> button on the DQL tile. You should see the new data.</p>
+<h2 id="explanation">Explanation<a class="headerlink" href="#explanation" title="Permanent link">#</a></h2>
+<p>The filelog receiver of the collector is configured to watch for changes to <code>example.csv</code>.</p>
+<p>When new content is detected, the filelog receiver ingests that data and parses it using the <a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/pkg/stanza/docs/operators/csv_parser.md" target="_blank">csv_parser operator</a>.</p>
+<p>We have informed the csv_parser that it should expect a header row with the named fields - if it doesn't find one, it will dynamically add those fields to the log records - meaning you can also send in CSV content without a header row.</p>
+<p>Finally we've told the csv_parser that a comma will be the field delimiter.</p>
+<p>The end result is a log record that looks like this as it flows through the collector (notice the data has been transformed to dedicated attributes):</p>
+<div class="highlight"><pre><span></span><code>LogRecord #0
+ObservedTimestamp: 2025-11-12 05:29:26.4341502 +0000 UTC
+Timestamp: 1970-01-01 00:00:00 +0000 UTC
+SeverityText:
+SeverityNumber: Unspecified(0)
+Body: Str(https://example.com/post/1,Anna,Bob,21/11/2025)
+Attributes:
+     -&gt; Asked By: Str(Anna)
+     -&gt; Answered: Str(Bob)
+     -&gt; Date Posted: Str(21/11/2025)
+     -&gt; log.file.name: Str(example.csv)
+     -&gt; log.file.path: Str(example.csv)
+     -&gt; Post: Str(https://example.com/post/1)
+Trace ID:
+Span ID:
+Flags: 0
+</code></pre></div>
+<div class="grid cards">
+<ul>
+<li><a href="../scenario14/">Click here to continue <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span></a></li>
+</ul>
+</div>
 
 
 

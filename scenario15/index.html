@@ -9,21 +9,25 @@
       
       
       
+        <link rel="prev" href="../scenario14/">
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+        <link rel="next" href="../cleanup/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
-        <title>Enlarge image tip - Dynatrace Observability Lab: OpenTelemetry Patterns</title>
+        <title>15. Processing JSONL - Dynatrace Observability Lab: OpenTelemetry Patterns</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -91,9 +95,9 @@
       
     
     
-      <link rel="stylesheet" href="../../overrides/assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../overrides/assets/stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -118,6 +122,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#filter-log-records-from-a-file" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -130,7 +139,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Dynatrace Observability Lab: OpenTelemetry Patterns" class="md-header__button md-logo" aria-label="Dynatrace Observability Lab: OpenTelemetry Patterns" data-md-component="logo">
+    <a href=".." title="Dynatrace Observability Lab: OpenTelemetry Patterns" class="md-header__button md-logo" aria-label="Dynatrace Observability Lab: OpenTelemetry Patterns" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -150,7 +159,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Enlarge image tip
+              15. Processing JSONL
             
           </span>
         </div>
@@ -276,7 +285,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Dynatrace Observability Lab: OpenTelemetry Patterns" class="md-nav__button md-logo" aria-label="Dynatrace Observability Lab: OpenTelemetry Patterns" data-md-component="logo">
+    <a href=".." title="Dynatrace Observability Lab: OpenTelemetry Patterns" class="md-nav__button md-logo" aria-label="Dynatrace Observability Lab: OpenTelemetry Patterns" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -306,7 +315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -328,7 +337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+      <a href="../getting-started/" class="md-nav__link">
         
   
   
@@ -350,7 +359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../start-demo/" class="md-nav__link">
+      <a href="../start-demo/" class="md-nav__link">
         
   
   
@@ -369,18 +378,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -396,7 +407,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Scenarios
@@ -410,7 +421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario1/" class="md-nav__link">
+      <a href="../scenario1/" class="md-nav__link">
         
   
   
@@ -433,7 +444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario2/" class="md-nav__link">
+      <a href="../scenario2/" class="md-nav__link">
         
   
   
@@ -456,7 +467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario3/" class="md-nav__link">
+      <a href="../scenario3/" class="md-nav__link">
         
   
   
@@ -479,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario4/" class="md-nav__link">
+      <a href="../scenario4/" class="md-nav__link">
         
   
   
@@ -502,7 +513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario5/" class="md-nav__link">
+      <a href="../scenario5/" class="md-nav__link">
         
   
   
@@ -525,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario6/" class="md-nav__link">
+      <a href="../scenario6/" class="md-nav__link">
         
   
   
@@ -548,7 +559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario7/" class="md-nav__link">
+      <a href="../scenario7/" class="md-nav__link">
         
   
   
@@ -571,7 +582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario8/" class="md-nav__link">
+      <a href="../scenario8/" class="md-nav__link">
         
   
   
@@ -594,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario9/" class="md-nav__link">
+      <a href="../scenario9/" class="md-nav__link">
         
   
   
@@ -617,7 +628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario10/" class="md-nav__link">
+      <a href="../scenario10/" class="md-nav__link">
         
   
   
@@ -640,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario11/" class="md-nav__link">
+      <a href="../scenario11/" class="md-nav__link">
         
   
   
@@ -663,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario12/" class="md-nav__link">
+      <a href="../scenario12/" class="md-nav__link">
         
   
   
@@ -686,7 +697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario13/" class="md-nav__link">
+      <a href="../scenario13/" class="md-nav__link">
         
   
   
@@ -709,7 +720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scenario14/" class="md-nav__link">
+      <a href="../scenario14/" class="md-nav__link">
         
   
   
@@ -729,10 +740,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../scenario15/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    15. Processing JSONL
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -743,6 +776,95 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-treat-data-as-json-line-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Treat data as JSON Line Format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-filter-out-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Filter out records
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tie-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tie it all together
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tie it all together">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stop-previous-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop Previous Collector
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Collector
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-data-in-collector-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validate Data in Collector Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explanation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -762,7 +884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cleanup/" class="md-nav__link">
+      <a href="../cleanup/" class="md-nav__link">
         
   
   
@@ -784,7 +906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/" class="md-nav__link">
+      <a href="../resources/" class="md-nav__link">
         
   
   
@@ -806,7 +928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../whats-next/" class="md-nav__link">
+      <a href="../whats-next/" class="md-nav__link">
         
   
   
@@ -838,6 +960,85 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-treat-data-as-json-line-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Treat data as JSON Line Format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-filter-out-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Filter out records
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tie-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tie it all together
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tie it all together">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stop-previous-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop Previous Collector
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Collector
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-data-in-collector-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validate Data in Collector Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explanation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -856,11 +1057,129 @@
   
 
 
-  <h1>Enlarge image tip</h1>
+<h1 id="filter-log-records-from-a-file">Filter Log Records from a File<a class="headerlink" href="#filter-log-records-from-a-file" title="Permanent link">#</a></h1>
+<script>
+var CURRENT_PAGE = "scenario-15";
 
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Right click and "open image in new tab" to see large image</p>
+document.addEventListener('DOMContentLoaded', function() {
+  dynatrace.sendBizEvent('page_load', {"page": CURRENT_PAGE});
+});
+</script>
+
+<p>Imagine a casino game platform writing security alert events to a log file. Each record captures things like the customer name, bet amounts, cheat detection results, and fraud risk levels. The file contains events for many customers, but you only want to forward records belonging to a specific customer — <code>Bob Smith</code> — to your observability backend.</p>
+<div class="highlight"><pre><span></span><code>{&quot;timestamp&quot;:&quot;2026-01-13T12:42:39.176Z&quot;,&quot;CustomerName&quot;:&quot;Sam Smith&quot;,&quot;cheatType&quot;:&quot;lucky_streak&quot;,&quot;winAmount&quot;:0,&quot;Balance&quot;:5728,&quot;DetectionRisk&quot;:&quot;HIGH&quot;,&quot;level&quot;:&quot;SECURITY_ALERT&quot;,&quot;event_type&quot;:&quot;CASINO_GAME_ACTIVITY&quot;,&quot;game&quot;:&quot;blackjack&quot;,&quot;category&quot;:&quot;FRAUD_DETECTION&quot;}
+{&quot;timestamp&quot;:&quot;2026-01-13T12:42:39.176Z&quot;,&quot;CustomerName&quot;:&quot;Bob Smith&quot;,&quot;cheatType&quot;:&quot;lucky_streak&quot;,&quot;winAmount&quot;:0,&quot;Balance&quot;:5728,&quot;DetectionRisk&quot;:&quot;HIGH&quot;,&quot;level&quot;:&quot;SECURITY_ALERT&quot;,&quot;event_type&quot;:&quot;CASINO_GAME_ACTIVITY&quot;,&quot;game&quot;:&quot;blackjack&quot;,&quot;category&quot;:&quot;FRAUD_DETECTION&quot;}
+</code></pre></div>
+<p><a href="https://github.com/Dynatrace/demo-opentelemetry-patterns/blob/main/scenario15.yaml" target="_blank">scenario15.yaml</a> shows the base OpenTelemetry collector configuration we'll use during this exercise.</p>
+<h2 id="step-1-treat-data-as-json-line-format">Step 1: Treat data as JSON Line Format<a class="headerlink" href="#step-1-treat-data-as-json-line-format" title="Permanent link">#</a></h2>
+<p>We (humans) know the data is single line JSON (aka JSONL), but the collector doesn't.</p>
+<p>This code tells the collector to expect JSONL formatted data.</p>
+<div class="highlight"><pre><span></span><code>operators:
+  - type: json_parser
+</code></pre></div>
+<p>This automatically transforms the log line into a set of attributes, ready for the next step.</p>
+<div class="highlight"><pre><span></span><code>Body: Str({&quot;timestamp&quot;:&quot;2026-01-13T12:42:39.176Z&quot;,&quot;CustomerName&quot;:&quot;Bob Smith&quot;,&quot;cheatType&quot;:&quot;lucky_streak&quot;,&quot;winAmount&quot;:0,&quot;Balance&quot;:5728,&quot;CorrelationId&quot;:&quot;743c9bf9517c7211&quot;,&quot;DetectionRisk&quot;:&quot;HIGH&quot;,&quot;requires_investigation&quot;:true,&quot;BetAmount&quot;:25,&quot;multiplier&quot;:0,&quot;result&quot;:&quot;cards dealt&quot;,&quot;level&quot;:&quot;SECURITY_ALERT&quot;,&quot;event_type&quot;:&quot;CASINO_GAME_ACTIVITY&quot;,&quot;game&quot;:&quot;blackjack&quot;,&quot;action&quot;:&quot;deal&quot;,&quot;email&quot;:&quot;sam.smith@example.com&quot;,&quot;company_name&quot;:&quot;ACME Corp&quot;,&quot;persona&quot;:&quot;IT Manager&quot;,&quot;booth&quot;:&quot;Healthcare Demo&quot;,&quot;balance_before&quot;:5753,&quot;balance_after&quot;:5728,&quot;cheat_active&quot;:true,&quot;cheat_type&quot;:&quot;lucky_streak&quot;,&quot;cheat_win_boost_applied&quot;:false,&quot;cheat_original_win&quot;:0,&quot;cheat_boosted_win&quot;:0,&quot;correlation_id&quot;:&quot;55cb6b222d89caad&quot;,&quot;user_agent&quot;:&quot;Vegas-Casino-Browser&quot;,&quot;ip_address&quot;:&quot;internal&quot;,&quot;opt_in&quot;:true,&quot;severity&quot;:&quot;HIGH&quot;,&quot;category&quot;:&quot;FRAUD_DETECTION&quot;})
+Attributes:
+     -&gt; timestamp: Str(2026-01-13T12:42:39.176Z)
+     -&gt; cheat_active: Bool(true)
+     -&gt; winAmount: Double(0)
+     -&gt; level: Str(SECURITY_ALERT)
+     -&gt; CorrelationId: Str(743c9bf9517c7211)
+     -&gt; balance_before: Double(5753)
+     -&gt; cheat_type: Str(lucky_streak)
+     -&gt; cheatType: Str(lucky_streak)
+     -&gt; cheat_original_win: Double(0)
+     -&gt; cheat_boosted_win: Double(0)
+     -&gt; category: Str(FRAUD_DETECTION)
+     -&gt; severity: Str(HIGH)
+     -&gt; ip_address: Str(internal)
+     -&gt; BetAmount: Double(25)
+     -&gt; company_name: Str(ACME Corp)
+     -&gt; persona: Str(IT Manager)
+     -&gt; game: Str(blackjack)
+     -&gt; event_type: Str(CASINO_GAME_ACTIVITY)
+     -&gt; email: Str(sam.smith@example.com)
+     -&gt; Balance: Double(5728)
+     -&gt; DetectionRisk: Str(HIGH)
+     -&gt; multiplier: Double(0)
+     -&gt; result: Str(cards dealt)
+     -&gt; booth: Str(Healthcare Demo)
+     -&gt; balance_after: Double(5728)
+     -&gt; correlation_id: Str(55cb6b222d89caad)
+     -&gt; action: Str(deal)
+     -&gt; opt_in: Bool(true)
+     -&gt; CustomerName: Str(Bob Smith)
+     -&gt; log.file.name: Str(scenario15.jsonl)
+     -&gt; requires_investigation: Bool(true)
+     -&gt; cheat_win_boost_applied: Bool(false)
+     -&gt; user_agent: Str(Vegas-Casino-Browser)
+</code></pre></div>
+<h2 id="step-2-filter-out-records">Step 2: Filter out records<a class="headerlink" href="#step-2-filter-out-records" title="Permanent link">#</a></h2>
+<p>This part is easy. The <code>filter</code> processor is used to filter <strong>out</strong> any log records where the <code>CustomerName</code> attribute does <strong>not</strong> equal <code>Bob Smith</code>.</p>
+<div class="highlight"><pre><span></span><code>filter:
+    error_mode: ignore
+    logs:
+      log_record:
+        - &#39;attributes[&quot;CustomerName&quot;] != &quot;Bob Sm1ith&quot;&#39;
+</code></pre></div>
+<h2 id="tie-it-all-together">Tie it all together<a class="headerlink" href="#tie-it-all-together" title="Permanent link">#</a></h2>
+<p>Always remember to actually use your configuration by adding it to a pipeline otherwise you won't see what you expect!</p>
+<div class="highlight"><pre><span></span><code>service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [filter]
+      exporters: [debug]
+</code></pre></div>
+<h3 id="stop-previous-collector">Stop Previous Collector<a class="headerlink" href="#stop-previous-collector" title="Permanent link">#</a></h3>
+<p>If you haven't done so already, stop the previous collector process by pressing <code>Ctrl + C</code>.</p>
+<h3 id="start-collector">Start Collector<a class="headerlink" href="#start-collector" title="Permanent link">#</a></h3>
+<p>Run the following command to start the collector:</p>
+<div class="highlight"><pre><span></span><code>source .env
+$BASE_DIR/dynatrace-otel-collector --config=$BASE_DIR/scenario15.yaml
+</code></pre></div>
+<h3 id="validate-data-in-collector-output">Validate Data in Collector Output<a class="headerlink" href="#validate-data-in-collector-output" title="Permanent link">#</a></h3>
+<p>Switch terminals back to the collector and you should see output like this.</p>
+<p>Notice how only the <code>Bob Smith</code> record appears — the <code>Sam Smith</code> record has been filtered out.</p>
+<div class="highlight"><pre><span></span><code>2026-01-13T12:42:39.176+1000    info    Logs    {&quot;resource logs&quot;: 1, &quot;log records&quot;: 1}
+2026-01-13T12:42:39.176+1000    info    ResourceLog #0
+Resource SchemaURL:
+Resource attributes:
+ScopeLogs #0
+ScopeLogs SchemaURL:
+InstrumentationScope
+LogRecord #0
+ObservedTimestamp: 2026-01-13 02:42:39.176 +0000 UTC
+Timestamp: 1970-01-01 00:00:00 +0000 UTC
+SeverityText:
+SeverityNumber: Unspecified(0)
+Body: Str({&quot;timestamp&quot;:&quot;2026-01-13T12:42:39.176Z&quot;,&quot;CustomerName&quot;:&quot;Bob Smith&quot;,...})
+Attributes:
+     -&gt; CustomerName: Str(Bob Smith)
+     -&gt; cheatType: Str(lucky_streak)
+     -&gt; winAmount: Int(0)
+     -&gt; Balance: Int(5728)
+     -&gt; DetectionRisk: Str(HIGH)
+     -&gt; level: Str(SECURITY_ALERT)
+     -&gt; event_type: Str(CASINO_GAME_ACTIVITY)
+     -&gt; game: Str(blackjack)
+     -&gt; category: Str(FRAUD_DETECTION)
+     -&gt; log.file.name: Str(scenario15.jsonl)
+     -&gt; log.file.path: Str(scenario15.jsonl)
+Trace ID:
+Span ID:
+Flags: 0
+</code></pre></div>
+<h2 id="explanation">Explanation<a class="headerlink" href="#explanation" title="Permanent link">#</a></h2>
+<p>The <code>filelog</code> receiver watches <code>scenario15.jsonl</code> and reads it from the beginning each time the collector starts.</p>
+<p>The <code>json_parser</code> operator parses each line as a JSON object and promotes all top-level fields to log record attributes — so <code>CustomerName</code>, <code>DetectionRisk</code>, <code>game</code>, and so on all become queryable attributes.</p>
+<p>The <code>filter</code> processor then drops any log record where <code>attributes["CustomerName"] != "Bob Smith"</code>. Because the filter condition describes what to <strong>drop</strong>, all records that are <em>not</em> Bob Smith are discarded, and only his records pass through to the exporter.</p>
+<p>This is a common pattern when you have a shared log file produced by a multi-tenant system and you want to route or forward only a specific subset of events.</p>
+<p>For more filtering options, see the <a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/filtprocessor" target="_blank">filter processor documentation</a>.</p>
+<div class="grid cards">
+<ul>
+<li><a href="scenario16.md">Click here to continue <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span></a></li>
+</ul>
 </div>
 
 
@@ -910,10 +1229,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
       
     
   </body>

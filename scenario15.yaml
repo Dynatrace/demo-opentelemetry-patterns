@@ -1,0 +1,28 @@
+receivers:
+  filelog:
+    include: [scenario15.jsonl]
+    start_at: beginning
+    operators:
+      - type: json_parser
+
+processors:
+  filter:
+    error_mode: ignore
+    logs:
+      log_record:
+        - 'attributes["CustomerName"] != "Bob Sm1ith"'
+
+exporters:
+  debug:
+    verbosity: detailed
+
+  otlphttp/dynatrace:
+    endpoint: "DT_ENDPOINT_PLACEHOLDER/api/v2/otlp"
+    headers:
+      Authorization: "Api-Token ${env:DT_API_TOKEN}"
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [filter]
+      exporters: [debug, otlphttp/dynatrace]

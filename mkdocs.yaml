@@ -20,6 +20,7 @@ nav:
     - '12. Extracting Metrics from Logs using Collector': scenario12.md
     - '13. Parse CSV Files': scenario13.md
     - '14. Redacting Log Attributes': scenario14.md
+    - '15. Processing JSONL': scenario15.md
   - '8. Cleanup': cleanup.md
   - '9. Resources': resources.md
   - "10. What's Next?": whats-next.md

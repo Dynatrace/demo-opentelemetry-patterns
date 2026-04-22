@@ -32,7 +32,7 @@ Run the following command to start the collector:
 
 ``` { "name": "[background] run otel collector scenario 12" }
 source .env
-$BASE_DIR/dynatrace-otel-collector --config=$BASE_DIR/scenario12.yaml
+$BASE_DIR/otelcol-contrib --config=$BASE_DIR/scenario12.yaml
 ```
 
 ### Generate Log Data

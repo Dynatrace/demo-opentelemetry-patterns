@@ -37,11 +37,10 @@ $BASE_DIR/otelcol-contrib --config=$BASE_DIR/scenario12.yaml
 
 ### Generate Log Data
 
-Open `file.log` file and add these log lines then save the file.
+Open `file.log` file and add this log line then save the file.
 
 ```
 A first dummy log line field=200
-A second dummy log line field=200
 ```
 
 ### View Data in Dynatrace

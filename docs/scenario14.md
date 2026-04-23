@@ -29,9 +29,9 @@ If you haven't done so already, stop the previous collector process by pressing 
 
 Run the following command to start the collector:
 
-``` { "name": "[background] run otel collector scenario 13" }
+``` { "name": "[background] run otel collector scenario 14" }
 source .env
-$BASE_DIR/dynatrace-otel-collector --config=$BASE_DIR/scenario14.yaml
+$BASE_DIR/otelcol-contrib --config=$BASE_DIR/scenario14.yaml
 ```
 
 ### Generate LogRecord
